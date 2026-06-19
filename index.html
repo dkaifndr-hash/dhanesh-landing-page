@@ -464,36 +464,82 @@
         <div class="lead-box fade-in">
             <div class="lead-content">
                 <h2>Get the Enterprise Agile Assessment</h2>
-                <p>A free 10-point diagnostic to evaluate your organization's Agile maturity and identify the highest-impact improvements.</p>
+                <p>A free 10-point diagnostic to evaluate your organization's Agile maturity and identify the highest-impact improvements. Get your personalized report delivered to your inbox.</p>
+                <ul class="lead-benefits">
+                    <li>10-point maturity diagnostic across leadership, process, culture & delivery</li>
+                    <li>Personalized report with prioritized recommendations</li>
+                    <li>Benchmarked against industry standards</li>
+                    <li>Delivered instantly to your email</li>
+                </ul>
             </div>
-            <form class="lead-form" action="#" method="POST" novalidate>
+            <form class="lead-form" id="assessmentForm" action="#" method="POST" novalidate>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="lead-name" class="sr-only">Your name</label>
-                        <input type="text" id="lead-name" name="name" placeholder="Your name" required autocomplete="name" aria-required="true">
+                        <input type="text" id="lead-name" name="name" placeholder="Your full name" required autocomplete="name" aria-required="true" minlength="2" maxlength="100">
+                        <span class="form-error" id="name-error" role="alert"></span>
                     </div>
                     <div class="form-group">
                         <label for="lead-email" class="sr-only">Work email</label>
-                        <input type="email" id="lead-email" name="email" placeholder="Work email" required autocomplete="email" aria-required="true" inputmode="email">
+                        <input type="email" id="lead-email" name="email" placeholder="Work email address" required autocomplete="email" aria-required="true" inputmode="email">
+                        <span class="form-error" id="email-error" role="alert"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="lead-company" class="sr-only">Company name</label>
+                        <input type="text" id="lead-company" name="company" placeholder="Company name" required autocomplete="organization" aria-required="true" minlength="2" maxlength="100">
+                        <span class="form-error" id="company-error" role="alert"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="lead-role" class="sr-only">Your role</label>
+                        <select id="lead-role" name="role" required aria-required="true">
+                            <option value="" disabled selected>Select your role</option>
+                            <option value="executive">C-Suite / VP</option>
+                            <option value="director">Director / Senior Manager</option>
+                            <option value="coach">Agile Coach / Scrum Master</option>
+                            <option value="pm">Program / Project Manager</option>
+                            <option value="po">Product Owner</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <span class="form-error" id="role-error" role="alert"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="lead-role" class="sr-only">Your role</label>
-                    <select id="lead-role" name="role" required aria-required="true">
-                        <option value="" disabled selected>Your role</option>
-                        <option value="executive">C-Suite / VP</option>
-                        <option value="director">Director / Senior Manager</option>
-                        <option value="coach">Agile Coach / Scrum Master</option>
-                        <option value="pm">Program / Project Manager</option>
-                        <option value="other">Other</option>
+                    <label for="lead-size" class="sr-only">Organization size</label>
+                    <select id="lead-size" name="size" required aria-required="true">
+                        <option value="" disabled selected>Organization size</option>
+                        <option value="50-250">50 – 250 employees</option>
+                        <option value="250-1000">250 – 1,000 employees</option>
+                        <option value="1000-5000">1,000 – 5,000 employees</option>
+                        <option value="5000+">5,000+ employees</option>
                     </select>
+                    <span class="form-error" id="size-error" role="alert"></span>
                 </div>
-                <button type="submit" class="btn-primary btn-full">Send Me the Assessment</button>
-                <p class="form-note">No spam. Unsubscribe anytime.</p>
+                <button type="submit" class="btn-primary btn-full" id="submitBtn">Send Me the Assessment</button>
+                <p class="form-note">No spam. Unsubscribe anytime. Your data is never shared.</p>
             </form>
         </div>
     </div>
 </section>
+
+<!-- Diagnostic Assessment Modal (hidden by default) -->
+<div class="assessment-modal" id="assessmentModal" aria-hidden="true" role="dialog" aria-label="Enterprise Agile Assessment">
+    <div class="assessment-modal-overlay"></div>
+    <div class="assessment-modal-content">
+        <button class="assessment-modal-close" aria-label="Close assessment">&times;</button>
+        <div class="assessment-header">
+            <h2>Enterprise Agile Maturity Assessment</h2>
+            <p>Rate your organization on each dimension below. Your personalized report will be generated based on your responses.</p>
+        </div>
+        <form id="diagnosticForm" novalidate>
+            <!-- Questions will be injected by JS -->
+            <div class="assessment-questions" id="assessmentQuestions"></div>
+            <div class="assessment-result" id="assessmentResult" aria-live="polite"></div>
+            <button type="submit" class="btn-primary btn-full" id="generateReportBtn">Generate My Report</button>
+        </form>
+    </div>
+</div>
 
 <!-- Final CTA -->
 <section id="cta" class="section cta" aria-label="Book a call">
@@ -585,14 +631,283 @@
         }, { threshold: 0.1 }).observe(ctaSection);
     }
 
-    var leadForm = document.querySelector('.lead-form');
+    // Lead form validation
+    var leadForm = document.getElementById('assessmentForm');
     if (leadForm) {
+        var profanityList = ['damn','hell','shit','fuck','ass','bitch','crap','stupid','idiot','dumb','lame','suck','wtf','wtf','omg','lol','asdf','test','aaa','bbb','xxx'];
+        var blockedDomains = ['gmail.com','yahoo.com','hotmail.com','outlook.com','aol.com','mail.com','yandex.com','protonmail.com','gmx.com','zoho.com','icloud.com','live.com','msn.com','comcast.net','verizon.net','att.net','cox.net','bellsouth.net','earthlink.net','juno.com','roadrunner.com','windstream.net','frontier.com','optonline.net','rr.com','pacbell.net','swbell.net','prodigy.net','netzero.com','netzero.net','aim.com','rocketmail.com','ymail.com','safe-mail.net','inbox.com','hushmail.com','hush.com','lycos.com','mailinator.com','guerrillamail.com','tempmail.com','throwaway.email','fakeinbox.com','sharklasers.com','guerrillamailblock.com','grr.la','dispostable.com','yopmail.com','trashmail.com','getnada.com','emailondeck.com','temp-mail.org','fakeemail.net','burnermail.io','mohmal.com','10minutemail.com','tempail.com','temp-mail.io','fakemail.net','emailfake.com','tempmailo.com','tempmailaddress.com','emailgenerator.com','throwam.com','tmpmail.net','tmpmail.org','tmpeml.com','tmpbox.net','tmpmail.com','tmpinbox.com','tmpemail.com','tmpmailaddress.com','tmpemailaddress.com','tmpmailaddress.org','tmpemailaddress.org'];
+
+        function showError(fieldId, message) {
+            var el = document.getElementById(fieldId);
+            if (el) { el.textContent = message; el.style.display = 'block'; }
+            var input = document.getElementById(fieldId.replace('-error',''));
+            if (input) { input.classList.add('input-error'); }
+        }
+        function clearError(fieldId) {
+            var el = document.getElementById(fieldId);
+            if (el) { el.textContent = ''; el.style.display = 'none'; }
+            var input = document.getElementById(fieldId.replace('-error',''));
+            if (input) { input.classList.remove('input-error'); }
+        }
+        function clearAllErrors() {
+            ['name-error','email-error','company-error','role-error','size-error'].forEach(clearError);
+        }
+        function validateName(name) {
+            if (!name || name.trim().length < 2) return 'Please enter your full name (at least 2 characters).';
+            if (name.trim().length > 100) return 'Name is too long.';
+            if (/[^a-zA-Z\s\-'.]/.test(name)) return 'Name contains invalid characters.';
+            var lower = name.toLowerCase();
+            for (var i = 0; i < profanityList.length; i++) {
+                if (lower.indexOf(profanityList[i]) !== -1) return 'Please enter a valid name.';
+            }
+            return '';
+        }
+        function validateEmail(email) {
+            if (!email || email.trim().length === 0) return 'Please enter your work email address.';
+            var re = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+            if (!re.test(email)) return 'Please enter a valid email address.';
+            var domain = email.split('@')[1].toLowerCase();
+            for (var i = 0; i < blockedDomains.length; i++) {
+                if (domain === blockedDomains[i]) return 'Please use a work email address (personal emails like Gmail, Yahoo, etc. are not accepted).';
+            }
+            if (domain.indexOf('.') === -1 || domain.length < 4) return 'Please enter a valid email domain.';
+            return '';
+        }
+        function validateCompany(company) {
+            if (!company || company.trim().length < 2) return 'Please enter your company name.';
+            if (company.trim().length > 100) return 'Company name is too long.';
+            var lower = company.toLowerCase();
+            for (var i = 0; i < profanityList.length; i++) {
+                if (lower.indexOf(profanityList[i]) !== -1) return 'Please enter a valid company name.';
+            }
+            return '';
+        }
+
         leadForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            var btn = leadForm.querySelector('button[type="submit"]');
-            var orig = btn.textContent;
-            btn.textContent = 'Sending...'; btn.disabled = true;
-            setTimeout(function() { btn.textContent = 'Sent! Check your email'; btn.style.background = '#16A34A'; leadForm.reset(); setTimeout(function() { btn.textContent = orig; btn.style.background = ''; btn.disabled = false; }, 3000); }, 1200);
+            clearAllErrors();
+            var name = document.getElementById('lead-name').value.trim();
+            var email = document.getElementById('lead-email').value.trim();
+            var company = document.getElementById('lead-company').value.trim();
+            var role = document.getElementById('lead-role').value;
+            var size = document.getElementById('lead-size').value;
+            var isValid = true;
+            var nameErr = validateName(name);
+            if (nameErr) { showError('name-error', nameErr); isValid = false; }
+            var emailErr = validateEmail(email);
+            if (emailErr) { showError('email-error', emailErr); isValid = false; }
+            var companyErr = validateCompany(company);
+            if (companyErr) { showError('company-error', companyErr); isValid = false; }
+            if (!role) { showError('role-error', 'Please select your role.'); isValid = false; }
+            if (!size) { showError('size-error', 'Please select your organization size.'); isValid = false; }
+            if (!isValid) return;
+
+            var btn = document.getElementById('submitBtn');
+            btn.textContent = 'Validating...'; btn.disabled = true;
+            setTimeout(function() {
+                btn.textContent = 'Assessment Sent!';
+                btn.style.background = '#16A34A';
+                // Store data for the assessment
+                window.leadData = { name: name, email: email, company: company, role: role, size: size };
+                // Show the assessment modal
+                setTimeout(function() {
+                    openAssessmentModal();
+                }, 800);
+            }, 800);
+        });
+    }
+
+    // 10-Point Diagnostic Assessment
+    var diagnosticQuestions = [
+        { id: 'q1', category: 'Leadership', question: 'How would you describe leadership commitment to Agile in your organization?', options: [
+            { val: 1, text: 'Leadership sees Agile as a buzzword and does not actively support it.' },
+            { val: 2, text: 'Leadership verbally supports Agile but does not model Agile behaviors.' },
+            { val: 3, text: 'Leadership actively sponsors Agile initiatives and removes organizational impediments.' },
+            { val: 4, text: 'Leadership lives Agile values, empowers teams, and drives continuous improvement from the top.' }
+        ]},
+        { id: 'q2', category: 'Culture', question: 'How does your organization handle failure and experimentation?', options: [
+            { val: 1, text: 'Failure is punished. People avoid taking risks.' },
+            { val: 2, text: 'Failure is tolerated but not discussed openly.' },
+            { val: 3, text: 'Teams are encouraged to experiment and learn from failures in retrospectives.' },
+            { val: 4, text: 'A blameless culture exists. Failures are treated as learning opportunities and shared across the organization.' }
+        ]},
+        { id: 'q3', category: 'Process', question: 'How mature is your Agile delivery process?', options: [
+            { val: 1, text: 'No consistent process. Teams work in silos with no shared framework.' },
+            { val: 2, text: 'Some teams use Agile practices but there is no organizational consistency.' },
+            { val: 3, text: 'Most teams follow a consistent Agile framework (Scrum, Kanban, or SAFe) with regular ceremonies.' },
+            { val: 4, text: 'Organization-wide Agile framework with continuous refinement, metrics-driven improvement, and cross-team alignment.' }
+        ]},
+        { id: 'q4', category: 'Delivery', question: 'How predictable is your delivery?', options: [
+            { val: 1, text: 'Deadlines are routinely missed. No reliable forecasting.' },
+            { val: 2, text: 'Some teams deliver on time but there is no organizational predictability.' },
+            { val: 3, text: 'Most teams can forecast delivery within a sprint/iteration with reasonable accuracy.' },
+            { val: 4, text: 'Organization-level predictability with reliable release planning and flow metrics.' }
+        ]},
+        { id: 'q5', category: 'Collaboration', question: 'How well do teams collaborate across your organization?', options: [
+            { val: 1, text: 'Teams work in complete silos with little to no cross-team communication.' },
+            { val: 2, text: 'Some cross-team collaboration but it requires significant management intervention.' },
+            { val: 3, text: 'Teams collaborate effectively through structured ceremonies (SoS, PI Planning, etc.).' },
+            { val: 4, text: 'Seamless cross-team collaboration with shared goals, communities of practice, and self-organizing networks.' }
+        ]},
+        { id: 'q6', category: 'Customer Focus', question: 'How connected are your teams to customer feedback?', options: [
+            { val: 1, text: 'Teams have no direct customer contact. Requirements come through layers of management.' },
+            { val: 2, text: 'Customer feedback exists but is not systematically incorporated into the backlog.' },
+            { val: 3, text: 'Teams regularly review customer feedback and adjust priorities accordingly.' },
+            { val: 4, text: 'Continuous customer feedback loops with real-time data driving product decisions.' }
+        ]},
+        { id: 'q7', category: 'Technical Practices', question: 'How mature are your technical practices (CI/CD, testing, code quality)?', options: [
+            { val: 1, text: 'Manual deployments, minimal testing, frequent production issues.' },
+            { val: 2, text: 'Some automation exists but it is inconsistent across teams.' },
+            { val: 3, text: 'CI/CD pipelines in place for most teams with automated testing.' },
+            { val: 4, text: 'Full CI/CD, automated testing, infrastructure as code, and continuous deployment to production.' }
+        ]},
+        { id: 'q8', category: 'Metrics', question: 'How does your organization measure Agile success?', options: [
+            { val: 1, text: 'No metrics tracked. Success is anecdotal.' },
+            { val: 2, text: 'Basic metrics (velocity, burndown) tracked but not used for improvement.' },
+            { val: 3, text: 'Multiple metrics tracked (lead time, cycle time, quality) and used in retrospectives.' },
+            { val: 4, text: 'Comprehensive metrics dashboard with flow metrics, quality gates, and business outcome tracking.' }
+        ]},
+        { id: 'q9', category: 'Learning', question: 'How does your organization invest in continuous learning?', options: [
+            { val: 1, text: 'No budget or time allocated for learning and development.' },
+            { val: 2, text: 'Occasional training but no structured learning program.' },
+            { val: 3, text: 'Regular training budget, communities of practice, and conference attendance.' },
+            { val: 4, text: 'Dedicated learning time (e.g., 20% time), internal coaching, and a culture of knowledge sharing.' }
+        ]},
+        { id: 'q10', category: 'Scaling', question: 'How well does your organization scale Agile practices?', options: [
+            { val: 1, text: 'Agile is limited to one or two pilot teams.' },
+            { val: 2, text: 'Multiple teams practice Agile but there is no coordination between them.' },
+            { val: 3, text: 'Agile is scaled across departments with some cross-team coordination (e.g., SoS, RTE).' },
+            { val: 4, text: 'Enterprise-wide Agile with portfolio-level alignment, value streams, and Lean-Agile budgeting.' }
+        ]}
+    ];
+
+    function openAssessmentModal() {
+        var modal = document.getElementById('assessmentModal');
+        var container = document.getElementById('assessmentQuestions');
+        if (!modal || !container) return;
+        // Build questions
+        var html = '';
+        diagnosticQuestions.forEach(function(q, idx) {
+            html += '<div class="assessment-question" data-question="' + q.id + '">';
+            html += '<div class="assessment-q-header"><span class="assessment-q-category">' + q.category + '</span><span class="assessment-q-number">Question ' + (idx + 1) + ' of 10</span></div>';
+            html += '<p class="assessment-q-text">' + q.question + '</p>';
+            html += '<div class="assessment-options">';
+            q.options.forEach(function(opt) {
+                html += '<label class="assessment-option"><input type="radio" name="' + q.id + '" value="' + opt.val + '" required><span class="assessment-option-label"><strong>' + opt.val + '.</strong> ' + opt.text + '</span></label>';
+            });
+            html += '</div></div>';
+        });
+        container.innerHTML = html;
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeAssessmentModal() {
+        var modal = document.getElementById('assessmentModal');
+        if (!modal) return;
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+
+    // Close modal on overlay click
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('assessment-modal-overlay') || e.target.classList.contains('assessment-modal-close')) {
+            closeAssessmentModal();
+        }
+    });
+
+    // Diagnostic form submission
+    var diagnosticForm = document.getElementById('diagnosticForm');
+    if (diagnosticForm) {
+        diagnosticForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var scores = {};
+            var allAnswered = true;
+            diagnosticQuestions.forEach(function(q) {
+                var selected = document.querySelector('input[name="' + q.id + '"]:checked');
+                if (selected) {
+                    scores[q.id] = { category: q.category, score: parseInt(selected.value) };
+                } else {
+                    allAnswered = false;
+                }
+            });
+            if (!allAnswered) {
+                alert('Please answer all 10 questions to generate your report.');
+                return;
+            }
+
+            // Calculate results
+            var totalScore = 0;
+            var categoryScores = {};
+            var categoryCounts = {};
+            Object.keys(scores).forEach(function(key) {
+                var s = scores[key];
+                totalScore += s.score;
+                if (!categoryScores[s.category]) { categoryScores[s.category] = 0; categoryCounts[s.category] = 0; }
+                categoryScores[s.category] += s.score;
+                categoryCounts[s.category]++;
+            });
+
+            var avgScore = (totalScore / 10).toFixed(1);
+            var maturityLevel = '';
+            var maturityDesc = '';
+            if (avgScore <= 1.5) {
+                maturityLevel = 'Initial';
+                maturityDesc = 'Your organization is at the beginning of its Agile journey. There is significant opportunity for improvement across all dimensions.';
+            } else if (avgScore <= 2.5) {
+                maturityLevel = 'Developing';
+                maturityDesc = 'You have started your Agile journey but practices are inconsistent. Focus on building foundational capabilities and leadership alignment.';
+            } else if (avgScore <= 3.5) {
+                maturityLevel = 'Mature';
+                maturityDesc = 'Your organization has solid Agile practices in place. Focus on scaling, continuous improvement, and deepening cultural adoption.';
+            } else {
+                maturityLevel = 'Optimizing';
+                maturityDesc = 'Your organization is a leader in Agile practices. Focus on innovation, enterprise-wide optimization, and sharing learnings across the industry.';
+            }
+
+            // Generate report HTML
+            var reportHTML = '<div class="report-content">';
+            reportHTML += '<div class="report-score"><span class="report-score-num">' + avgScore + '</span><span class="report-score-out">/ 4.0</span></div>';
+            reportHTML += '<div class="report-maturity"><strong>' + maturityLevel + ' Maturity</strong><p>' + maturityDesc + '</p></div>';
+            reportHTML += '<div class="report-categories">';
+            Object.keys(categoryScores).forEach(function(cat) {
+                var catAvg = (categoryScores[cat] / categoryCounts[cat]).toFixed(1);
+                var barWidth = (catAvg / 4 * 100).toFixed(0);
+                reportHTML += '<div class="report-cat"><span class="report-cat-name">' + cat + '</span><div class="report-cat-bar"><div class="report-cat-fill" style="width:' + barWidth + '%"></div></div><span class="report-cat-score">' + catAvg + '</span></div>';
+            });
+            reportHTML += '</div>';
+            reportHTML += '<div class="report-next"><h3>Recommended Next Steps</h3><ul>';
+            // Find lowest scoring categories
+            var sortedCats = Object.keys(categoryScores).sort(function(a, b) {
+                return (categoryScores[a]/categoryCounts[a]) - (categoryScores[b]/categoryCounts[b]);
+            });
+            var recommendations = {
+                'Leadership': 'Schedule a leadership alignment workshop to build executive sponsorship and model Agile behaviors.',
+                'Culture': 'Implement blameless retrospectives and create psychological safety for experimentation.',
+                'Process': 'Standardize Agile ceremonies across teams and implement regular process reviews.',
+                'Delivery': 'Implement flow metrics (lead time, cycle time) and improve forecasting practices.',
+                'Collaboration': 'Establish Communities of Practice and cross-team synchronization ceremonies.',
+                'Customer Focus': 'Build continuous customer feedback loops into your product development process.',
+                'Technical Practices': 'Invest in CI/CD pipelines, automated testing, and infrastructure as code.',
+                'Metrics': 'Implement a metrics dashboard tracking flow, quality, and business outcomes.',
+                'Learning': 'Allocate dedicated learning time and establish internal coaching capabilities.',
+                'Scaling': 'Implement portfolio-level alignment and value stream coordination.'
+            };
+            sortedCats.slice(0, 3).forEach(function(cat) {
+                if (recommendations[cat]) {
+                    reportHTML += '<li><strong>' + cat + ':</strong> ' + recommendations[cat] + '</li>';
+                }
+            });
+            reportHTML += '</ul></div>';
+            reportHTML += '<div class="report-cta"><p>This assessment was generated for <strong>' + (window.leadData ? window.leadData.name : '') + '</strong> at <strong>' + (window.leadData ? window.leadData.company : '') + '</strong>.</p><p>A detailed PDF report will be sent to <strong>' + (window.leadData ? window.leadData.email : '') + '</strong>.</p><a href="https://calendly.com/coachdhaneshk" target="_blank" rel="noopener" class="btn-primary">Book a Free Consultation to Discuss Your Results</a></div>';
+            reportHTML += '</div>';
+
+            document.getElementById('assessmentResult').innerHTML = reportHTML;
+            document.getElementById('assessmentQuestions').style.display = 'none';
+            document.getElementById('generateReportBtn').style.display = 'none';
+            document.getElementById('assessmentResult').style.display = 'block';
         });
     }
 })();
