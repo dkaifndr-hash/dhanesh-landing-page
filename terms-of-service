@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://pragility.ca/terms-of-service">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <title>Terms of Service — Pragmatic Agility</title>
+    <meta name="description" content="Terms of Service for Pragmatic Agility. Read our terms and conditions for using our website and services.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .legal-page{max-width:800px;margin:0 auto;padding:120px 24px 80px}
+        .legal-page h1{font-size:2rem;margin-bottom:8px;color:var(--text)}
+        .legal-page h2{font-size:1.3rem;margin-top:32px;margin-bottom:12px;color:var(--text)}
+        .legal-page p{margin-bottom:16px;line-height:1.7;color:var(--text-body)}
+        .legal-page ul{margin-bottom:16px;padding-left:24px}
+        .legal-page li{margin-bottom:8px;line-height:1.7;color:var(--text-body)}
+        .legal-page .last-updated{font-size:0.85rem;color:var(--text-muted);margin-bottom:32px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+        .legal-nav{margin-bottom:32px;padding:16px;background:var(--bg-alt);border-radius:var(--radius)}
+        .legal-nav a{display:inline-block;margin-right:16px;font-size:0.9rem;color:var(--cta);text-decoration:none;font-weight:500}
+        .legal-nav a:hover{text-decoration:underline}
+    </style>
+</head>
+<body>
+    <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo" aria-label="Pragmatic Agility — Home">
+                <img src="pragility-logo.png" alt="Pragmatic Agility" class="nav-logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="/#about" class="nav-link">About</a>
+                <a href="/#services" class="nav-link">Services</a>
+                <a href="/#testimonials" class="nav-link">Testimonials</a>
+                <a href="/#faq" class="nav-link">FAQ</a>
+                <a href="https://calendly.com/coachdhaneshk" target="_blank" rel="noopener" class="nav-cta">Book a Free Call</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="legal-page">
+        <nav class="legal-nav" aria-label="Legal pages">
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/terms-of-service">Terms of Service</a>
+            <a href="/security">Security</a>
+        </nav>
+
+        <h1>Terms of Service</h1>
+        <p class="last-updated">Last updated: June 19, 2025</p>
+
+        <h2>1. Acceptance of Terms</h2>
+        <p>By accessing and using the Pragmatic Agility website ("Website") and our services, you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to abide by these terms, please do not use our services.</p>
+
+        <h2>2. Description of Services</h2>
+        <p>Pragmatic Agility provides enterprise Agile coaching, leadership mentoring, SAFe® training, Scrum Master and Product Owner training, workshops, seminars, and related consulting services ("Services"). Our services are designed to help organizations improve their Agile maturity and delivery capabilities.</p>
+
+        <h2>3. Use of Website</h2>
+        <p>You agree to use our Website only for lawful purposes and in a manner that does not infringe upon the rights of, restrict, or inhibit anyone else's use of the Website. You may not:</p>
+        <ul>
+            <li>Use the Website in any way that violates any applicable federal, state, local, or international law or regulation</li>
+            <li>Attempt to gain unauthorized access to any portion of the Website, other accounts, computer systems, or networks connected to the Website</li>
+            <li>Use any robot, spider, scraper, or other automated means to access the Website without our express written permission</li>
+            <li>Introduce any viruses, Trojan horses, worms, logic bombs, or other material that is malicious or technologically harmful</li>
+            <li>Interfere with or disrupt the integrity or performance of the Website or the data contained therein</li>
+        </ul>
+
+        <h2>4. Intellectual Property</h2>
+        <p>The content, features, and functionality of the Website are owned by Pragmatic Agility and are protected by international copyright, trademark, patent, trade secret, and other intellectual property laws. The Pragmatic Agility name, logo, and all related names, logos, product and service names, designs, and slogans are trademarks of Pragmatic Agility. You may not use such marks without our prior written permission.</p>
+
+        <h2>5. Assessment and Reports</h2>
+        <p>The Enterprise Agile Assessment and any reports generated are provided for informational purposes only. The assessment results represent a snapshot of your organization's Agile maturity based on self-reported data and should not be construed as a comprehensive audit or guarantee of specific outcomes. Pragmatic Agility makes no warranties regarding the accuracy, completeness, or applicability of the assessment results to your specific situation.</p>
+
+        <h2>6. Service Engagement Terms</h2>
+        <p>Specific terms for coaching engagements, training programs, and consulting services will be outlined in a separate statement of work or service agreement. Unless otherwise specified:</p>
+        <ul>
+            <li>All fees are quoted in Canadian dollars (CAD) unless otherwise stated</li>
+            <li>Payment terms are net 15 days from invoice date</li>
+            <li>Cancellations made less than 48 hours before a scheduled session may be subject to a cancellation fee</li>
+            <li>Training materials provided are for the sole use of the registered participants and may not be reproduced or distributed without permission</li>
+        </ul>
+
+        <h2>7. Limitation of Liability</h2>
+        <p>To the fullest extent permitted by applicable law, Pragmatic Agility shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your access to or use of or inability to access or use the services.</p>
+
+        <h2>8. Indemnification</h2>
+        <p>You agree to defend, indemnify, and hold harmless Pragmatic Agility, its officers, directors, employees, and agents from and against any claims, liabilities, damages, judgments, awards, losses, costs, expenses, or fees arising out of or relating to your violation of these Terms of Service or your use of the Website.</p>
+
+        <h2>9. Governing Law</h2>
+        <p>These Terms of Service shall be governed by and construed in accordance with the laws of the Province of Ontario, Canada, without regard to its conflict of law provisions. Any disputes arising under these terms shall be subject to the exclusive jurisdiction of the courts located in Ontario, Canada.</p>
+
+        <h2>10. Modifications to Terms</h2>
+        <p>Pragmatic Agility reserves the right to modify or replace these Terms of Service at any time. If a revision is material, we will try to provide at least 30 days notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.</p>
+
+        <h2>11. Severability</h2>
+        <p>If any provision of these Terms of Service is held to be unenforceable or invalid, such provision will be changed and interpreted to accomplish the objectives of such provision to the greatest extent possible under applicable law, and the remaining provisions will continue in full force and effect.</p>
+
+        <h2>12. Contact Us</h2>
+        <p>If you have any questions about these Terms of Service, please contact us:</p>
+        <ul>
+            <li>Email: info@pragility.ca</li>
+            <li>Phone: 647-974-4825</li>
+            <li>Location: Oakville, ON, Canada</li>
+        </ul>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="footer-logo" aria-label="Pragmatic Agility — Home">
+                        <img src="pragility-logo.png" alt="Pragmatic Agility" class="footer-logo-img">
+                    </a>
+                    <p class="footer-tagline">Enterprise Agile Coaching & Training</p>
+                    <div class="footer-contact">
+                        <p><a href="mailto:info@pragility.ca">info@pragility.ca</a></p>
+                        <p><a href="tel:+16479744825">647-974-4825</a></p>
+                        <p>Oakville, ON, Canada</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Services</h4>
+                        <a href="/#services">Enterprise Agile Strategy</a>
+                        <a href="/#services">Leadership Coaching</a>
+                        <a href="/#services">SAFe® Implementation</a>
+                        <a href="/#services">Training & Workshops</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Company</h4>
+                        <a href="/#about">About</a>
+                        <a href="/#testimonials">Testimonials</a>
+                        <a href="/#faq">FAQ</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Legal</h4>
+                        <a href="/privacy-policy">Privacy Policy</a>
+                        <a href="/terms-of-service">Terms of Service</a>
+                        <a href="/security">Security</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Pragmatic Agility. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

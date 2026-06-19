@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://pragility.ca/security">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <title>Security — Pragmatic Agility</title>
+    <meta name="description" content="Security practices and measures at Pragmatic Agility. Learn how we protect your data and maintain a secure infrastructure.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .legal-page{max-width:800px;margin:0 auto;padding:120px 24px 80px}
+        .legal-page h1{font-size:2rem;margin-bottom:8px;color:var(--text)}
+        .legal-page h2{font-size:1.3rem;margin-top:32px;margin-bottom:12px;color:var(--text)}
+        .legal-page p{margin-bottom:16px;line-height:1.7;color:var(--text-body)}
+        .legal-page ul{margin-bottom:16px;padding-left:24px}
+        .legal-page li{margin-bottom:8px;line-height:1.7;color:var(--text-body)}
+        .legal-page .last-updated{font-size:0.85rem;color:var(--text-muted);margin-bottom:32px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+        .legal-nav{margin-bottom:32px;padding:16px;background:var(--bg-alt);border-radius:var(--radius)}
+        .legal-nav a{display:inline-block;margin-right:16px;font-size:0.9rem;color:var(--cta);text-decoration:none;font-weight:500}
+        .legal-nav a:hover{text-decoration:underline}
+        .security-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:var(--success);color:#fff;border-radius:var(--radius-pill);font-size:0.85rem;font-weight:600;margin-bottom:24px}
+        .security-badge svg{width:16px;height:16px}
+    </style>
+</head>
+<body>
+    <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo" aria-label="Pragmatic Agility — Home">
+                <img src="pragility-logo.png" alt="Pragmatic Agility" class="nav-logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="/#about" class="nav-link">About</a>
+                <a href="/#services" class="nav-link">Services</a>
+                <a href="/#testimonials" class="nav-link">Testimonials</a>
+                <a href="/#faq" class="nav-link">FAQ</a>
+                <a href="https://calendly.com/coachdhaneshk" target="_blank" rel="noopener" class="nav-cta">Book a Free Call</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="legal-page">
+        <nav class="legal-nav" aria-label="Legal pages">
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/terms-of-service">Terms of Service</a>
+            <a href="/security">Security</a>
+        </nav>
+
+        <h1>Security</h1>
+        <p class="last-updated">Last updated: June 19, 2025</p>
+
+        <div class="security-badge">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+            SSL Secured &amp; Protected
+        </div>
+
+        <h2>Our Security Commitment</h2>
+        <p>At Pragmatic Agility, we take the security of your data seriously. We implement industry-standard security measures to protect your personal information and ensure the integrity of our services. Our security practices are designed to meet or exceed applicable regulatory requirements and industry best practices.</p>
+
+        <h2>Data Encryption</h2>
+        <p>All data transmitted between your browser and our servers is encrypted using TLS 1.2/1.3 (Transport Layer Security). This ensures that your data cannot be intercepted or read by unauthorized parties during transmission. Our SSL certificate is maintained and renewed regularly to ensure continuous protection.</p>
+
+        <h2>Infrastructure Security</h2>
+        <p>Our website and services are hosted on secure, enterprise-grade infrastructure with the following protections:</p>
+        <ul>
+            <li><strong>DDoS Protection:</strong> Distributed Denial of Service (DDoS) mitigation to ensure service availability</li>
+            <li><strong>Web Application Firewall (WAF):</strong> Protection against common web vulnerabilities including SQL injection, cross-site scripting (XSS), and other OWASP Top 10 threats</li>
+            <li><strong>Regular Security Updates:</strong> All software components are kept up to date with the latest security patches</li>
+            <li><strong>Intrusion Detection:</strong> Automated monitoring for suspicious activity and potential security breaches</li>
+            <li><strong>Backup and Recovery:</strong> Regular backups with tested recovery procedures to ensure data integrity</li>
+        </ul>
+
+        <h2>Access Controls</h2>
+        <p>We implement strict access controls to ensure that only authorized personnel can access your data:</p>
+        <ul>
+            <li><strong>Authentication:</strong> Multi-factor authentication (MFA) for all administrative access</li>
+            <li><strong>Least Privilege:</strong> Access is granted on a need-to-know basis with minimum necessary permissions</li>
+            <li><strong>Audit Logging:</strong> All access to sensitive data is logged and monitored</li>
+            <li><strong>Regular Access Reviews:</strong> Periodic review and revocation of unnecessary access rights</li>
+        </ul>
+
+        <h2>Data Protection</h2>
+        <p>We employ multiple layers of data protection:</p>
+        <ul>
+            <li><strong>Encryption at Rest:</strong> Sensitive data is encrypted when stored</li>
+            <li><strong>Data Minimization:</strong> We collect only the information necessary to provide our services</li>
+            <li><strong>Retention Limits:</strong> Data is retained only as long as necessary and securely deleted when no longer needed</li>
+            <li><strong>No Third-Party Sharing:</strong> We do not sell, trade, or share your personal data with third parties for marketing purposes</li>
+        </ul>
+
+        <h2>Form Security</h2>
+        <p>Our lead capture and assessment forms include multiple security measures:</p>
+        <ul>
+            <li><strong>Input Validation:</strong> All form inputs are validated to prevent injection attacks</li>
+            <li><strong>Email Verification:</strong> Work email required; personal email domains are blocked to ensure legitimate business inquiries</li>
+            <li><strong>Profanity Filtering:</strong> Content filtering to prevent abuse</li>
+            <li><strong>Rate Limiting:</strong> Protection against automated form submissions</li>
+            <li><strong>No Data Storage:</strong> Assessment data is processed in memory and not permanently stored on our servers</li>
+        </ul>
+
+        <h2>Security Headers</h2>
+        <p>Our website implements the following HTTP security headers:</p>
+        <ul>
+            <li><strong>X-Content-Type-Options: nosniff</strong> — Prevents MIME type sniffing</li>
+            <li><strong>X-Frame-Options: DENY</strong> — Prevents clickjacking attacks</li>
+            <li><strong>Referrer-Policy: strict-origin-when-cross-origin</strong> — Controls referrer information</li>
+            <li><strong>Strict-Transport-Security</strong> — Enforces HTTPS connections</li>
+            <li><strong>Content-Security-Policy</strong> — Prevents XSS and data injection attacks</li>
+        </ul>
+
+        <h2>Incident Response</h2>
+        <p>In the event of a security incident, we have a defined incident response plan that includes:</p>
+        <ul>
+            <li>Immediate containment and assessment of the incident</li>
+            <li>Notification to affected users within 72 hours, as required by applicable regulations</li>
+            <li>Investigation and remediation of the root cause</li>
+            <li>Implementation of measures to prevent similar incidents in the future</li>
+        </ul>
+
+        <h2>Compliance</h2>
+        <p>Our security practices are designed to comply with applicable data protection regulations, including:</p>
+        <ul>
+            <li><strong>PIPEDA</strong> — Personal Information Protection and Electronic Documents Act (Canada)</li>
+            <li><strong>GDPR</strong> — General Data Protection Regulation (EU), where applicable</li>
+            <li><strong>CASL</strong> — Canada's Anti-Spam Legislation</li>
+        </ul>
+
+        <h2>Report a Security Issue</h2>
+        <p>If you discover a security vulnerability or have concerns about our security practices, please contact us immediately at info@pragility.ca. We take all security reports seriously and will respond promptly.</p>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="footer-logo" aria-label="Pragmatic Agility — Home">
+                        <img src="pragility-logo.png" alt="Pragmatic Agility" class="footer-logo-img">
+                    </a>
+                    <p class="footer-tagline">Enterprise Agile Coaching & Training</p>
+                    <div class="footer-contact">
+                        <p><a href="mailto:info@pragility.ca">info@pragility.ca</a></p>
+                        <p><a href="tel:+164****4825">647-974-4825</a></p>
+                        <p>Oakville, ON, Canada</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Services</h4>
+                        <a href="/#services">Enterprise Agile Strategy</a>
+                        <a href="/#services">Leadership Coaching</a>
+                        <a href="/#services">SAFe® Implementation</a>
+                        <a href="/#services">Training & Workshops</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Company</h4>
+                        <a href="/#about">About</a>
+                        <a href="/#testimonials">Testimonials</a>
+                        <a href="/#faq">FAQ</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Legal</h4>
+                        <a href="/privacy-policy">Privacy Policy</a>
+                        <a href="/terms-of-service">Terms of Service</a>
+                        <a href="/security">Security</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Pragmatic Agility. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
