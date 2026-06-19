@@ -6,22 +6,23 @@
 }
 
 :root {
-    --bg: #0a0a0f;
-    --bg-alt: #111118;
-    --surface: #16161f;
-    --border: #2a2a3a;
-    --text: #e8e8f0;
-    --text-muted: #8888a0;
-    --accent: #6c5ce7;
-    --accent-light: #a29bfe;
-    --accent-glow: rgba(108, 92, 231, 0.15);
-    --success: #00d68f;
-    --warning: #ffaa00;
-    --danger: #ff3d71;
+    --bg: #faf9f6;
+    --bg-alt: #f3f1ec;
+    --surface: #ffffff;
+    --border: #e2dfd8;
+    --text: #1a1a1a;
+    --text-muted: #6b6b6b;
+    --accent: #2c5282;
+    --accent-light: #3b82c4;
+    --accent-warm: #c8a96a;
+    --accent-warm-light: #f0e6d2;
+    --success: #2f855a;
+    --danger: #c53030;
     --radius: 12px;
     --radius-sm: 8px;
     --max-width: 1120px;
-    --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-heading: 'Playfair Display', Georgia, serif;
 }
 
 html {
@@ -30,7 +31,7 @@ html {
 }
 
 body {
-    font-family: var(--font);
+    font-family: var(--font-body);
     background: var(--bg);
     color: var(--text);
     line-height: 1.6;
@@ -38,13 +39,13 @@ body {
 }
 
 a {
-    color: var(--accent-light);
+    color: var(--accent);
     text-decoration: none;
     transition: color 0.2s;
 }
 
 a:hover {
-    color: var(--accent);
+    color: var(--accent-light);
 }
 
 /* Container */
@@ -61,7 +62,7 @@ a:hover {
     left: 0;
     right: 0;
     z-index: 100;
-    background: rgba(10, 10, 15, 0.85);
+    background: rgba(250, 249, 246, 0.92);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
     padding: 16px 0;
@@ -77,15 +78,16 @@ a:hover {
 }
 
 .nav-logo {
+    font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     color: var(--text);
 }
 
 .nav-cta {
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--accent-light);
+    color: var(--accent);
     border: 1px solid var(--accent);
     padding: 8px 16px;
     border-radius: var(--radius-sm);
@@ -93,57 +95,59 @@ a:hover {
 }
 
 .nav-cta:hover {
-    background: var(--accent-glow);
-    color: var(--text);
+    background: var(--accent);
+    color: #fff;
 }
 
 /* Hero */
 .hero {
     padding: 160px 0 100px;
     text-align: center;
-    background: radial-gradient(ellipse at 50% 0%, var(--accent-glow) 0%, transparent 60%);
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
 }
 
 .eyebrow {
     display: inline-block;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
-    color: var(--accent-light);
+    color: var(--accent-warm);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
     margin-bottom: 24px;
-    border: 1px solid var(--accent);
+    border: 1px solid var(--accent-warm);
     padding: 6px 14px;
     border-radius: 100px;
-    background: var(--accent-glow);
+    background: var(--accent-warm-light);
 }
 
 .hero h1 {
-    font-size: clamp(2.2rem, 5vw, 3.6rem);
-    font-weight: 800;
-    line-height: 1.15;
+    font-family: var(--font-heading);
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1.2;
     margin-bottom: 24px;
-    letter-spacing: -0.02em;
+    color: var(--text);
+    letter-spacing: -0.01em;
 }
 
 .hero h1 em {
-    color: var(--accent-light);
-    font-style: normal;
+    font-style: italic;
+    color: var(--accent);
 }
 
 .subheadline {
     font-size: 1.15rem;
     color: var(--text-muted);
-    max-width: 640px;
+    max-width: 680px;
     margin: 0 auto 36px;
     line-height: 1.7;
 }
 
 .trust-line {
     margin-top: 24px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--text-muted);
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 /* Buttons */
@@ -161,7 +165,7 @@ a:hover {
 }
 
 .btn-primary:hover {
-    background: #5a4bd6;
+    background: #1e3a5f;
     transform: translateY(-1px);
     color: #fff;
 }
@@ -184,8 +188,8 @@ a:hover {
 
 .btn-outline:hover {
     border-color: var(--accent);
-    color: var(--accent-light);
-    background: var(--accent-glow);
+    color: var(--accent);
+    background: rgba(44, 82, 130, 0.04);
 }
 
 /* Sections */
@@ -194,22 +198,19 @@ a:hover {
 }
 
 .section h2 {
+    font-family: var(--font-heading);
     font-size: clamp(1.8rem, 3.5vw, 2.6rem);
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1.25;
     margin-bottom: 16px;
-    letter-spacing: -0.02em;
-}
-
-.section h2 em {
-    color: var(--accent-light);
-    font-style: normal;
+    color: var(--text);
 }
 
 .section h3 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 12px;
+    color: var(--text);
 }
 
 .section-intro {
@@ -253,7 +254,7 @@ a:hover {
 .pain-icon {
     width: 32px;
     height: 32px;
-    background: rgba(255, 61, 113, 0.15);
+    background: rgba(197, 48, 48, 0.1);
     color: var(--danger);
     border-radius: 50%;
     display: flex;
@@ -288,24 +289,23 @@ a:hover {
 
 .outcome-card {
     background: var(--surface);
-    border: 1px solid var(--accent);
+    border: 1px solid var(--accent-warm);
     border-radius: var(--radius);
     padding: 28px;
     position: relative;
-    background: linear-gradient(135deg, var(--surface) 0%, rgba(108, 92, 231, 0.05) 100%);
 }
 
 .outcome-icon {
     width: 36px;
     height: 36px;
-    background: var(--accent);
+    background: var(--accent-warm);
     color: #fff;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     margin-bottom: 16px;
 }
 
@@ -346,7 +346,7 @@ a:hover {
 .step-num {
     font-size: 0.8rem;
     font-weight: 800;
-    color: var(--accent-light);
+    color: var(--accent-warm);
     letter-spacing: 0.1em;
     margin-bottom: 12px;
     display: block;
@@ -389,29 +389,30 @@ a:hover {
     padding: 32px;
     display: flex;
     flex-direction: column;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .offer-card:hover {
-    border-color: var(--accent);
+    border-color: var(--accent-warm);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
 .offer-card.featured {
-    border-color: var(--accent);
-    background: linear-gradient(180deg, rgba(108, 92, 231, 0.08) 0%, var(--surface) 100%);
+    border-color: var(--accent-warm);
+    background: linear-gradient(180deg, var(--accent-warm-light) 0%, var(--surface) 100%);
 }
 
 .offer-tag {
     font-size: 0.75rem;
     font-weight: 600;
-    color: var(--accent-light);
+    color: var(--accent-warm);
     text-transform: uppercase;
     letter-spacing: 0.08em;
     margin-bottom: 12px;
 }
 
 .offer-card h3 {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     margin-bottom: 8px;
 }
 
@@ -444,7 +445,7 @@ a:hover {
     transform: translateY(-50%);
     width: 6px;
     height: 6px;
-    background: var(--accent);
+    background: var(--accent-warm);
     border-radius: 50%;
 }
 
@@ -510,25 +511,80 @@ a:hover {
 
 .stat-num {
     display: block;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 800;
-    color: var(--accent-light);
+    color: var(--accent);
     margin-bottom: 4px;
 }
 
 .stat-label {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
 
-.proof-note {
+.proof-credentials {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
     margin-top: 32px;
-    font-size: 0.8rem;
+}
+
+.cred {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: rgba(44, 82, 130, 0.06);
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1px solid rgba(44, 82, 130, 0.15);
+}
+
+.proof-experience {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.exp-item {
+    font-size: 0.9rem;
     color: var(--text-muted);
-    opacity: 0.6;
+    padding: 12px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    text-align: left;
+}
+
+.exp-item strong {
+    color: var(--text);
+    font-weight: 600;
+}
+
+/* Testimonial */
+.testimonial {
+    background: var(--accent);
+    padding: 80px 0;
+    text-align: center;
+}
+
+.testimonial blockquote {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.testimonial p {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
     font-style: italic;
+    color: #fff;
+    line-height: 1.6;
 }
 
 /* How It Works */
@@ -561,8 +617,8 @@ a:hover {
     justify-content: center;
     width: 40px;
     height: 40px;
-    background: var(--accent-glow);
-    color: var(--accent-light);
+    background: var(--accent-warm-light);
+    color: var(--accent-warm);
     font-weight: 700;
     font-size: 1rem;
     border-radius: 50%;
@@ -674,6 +730,7 @@ summary {
     list-style: none;
     position: relative;
     padding-right: 48px;
+    color: var(--text);
 }
 
 summary::-webkit-details-marker {
@@ -687,12 +744,12 @@ summary::after {
     top: 50%;
     transform: translateY(-50%);
     font-size: 1.2rem;
-    color: var(--accent-light);
+    color: var(--accent-warm);
     font-weight: 400;
 }
 
 details[open] summary::after {
-    content: '−';
+    content: '\2212';
 }
 
 details p {
@@ -707,7 +764,7 @@ details p {
     background: var(--bg);
     text-align: center;
     padding: 120px 0;
-    background: radial-gradient(ellipse at 50% 50%, var(--accent-glow) 0%, transparent 60%);
+    background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
 }
 
 .cta h2 {
@@ -727,7 +784,7 @@ details p {
     margin-top: 20px;
     font-size: 0.85rem;
     color: var(--text-muted);
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 /* Footer */
@@ -741,6 +798,12 @@ details p {
 .footer p {
     font-size: 0.85rem;
     color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.footer-creds {
+    font-size: 0.75rem;
+    opacity: 0.7;
 }
 
 /* Responsive */
@@ -764,12 +827,20 @@ details p {
     }
 
     .proof-stats {
-        gap: 32px;
+        gap: 24px;
+    }
+
+    .proof-experience {
+        grid-template-columns: 1fr;
     }
 
     .nav-cta {
         font-size: 0.8rem;
         padding: 6px 12px;
+    }
+
+    .testimonial p {
+        font-size: 1.15rem;
     }
 }
 
@@ -784,5 +855,14 @@ details p {
 
     .offer-card {
         padding: 24px;
+    }
+
+    .proof-credentials {
+        gap: 8px;
+    }
+
+    .cred {
+        font-size: 0.7rem;
+        padding: 4px 10px;
     }
 }
