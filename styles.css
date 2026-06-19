@@ -160,7 +160,9 @@ a:hover { color: var(--cta-hover); }
 /* Services */
 .offer { background: var(--bg); }
 .offer .eyebrow,.offer h2 { text-align: center; display: block; margin-left: auto; margin-right: auto; }
-.offer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.offer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+@media (max-width: 1100px) { .offer-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .offer-grid { grid-template-columns: 1fr; } }
 .offer-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; display: flex; flex-direction: column; transition: all var(--duration) var(--ease); position: relative; }
 .offer-card:hover { border-color: var(--cta); box-shadow: var(--shadow-lg); transform: translateY(-3px); }
 .offer-card.featured { border-color: var(--accent-warm); box-shadow: var(--shadow-md); background: linear-gradient(135deg, var(--bg-card) 0%, #FFFBF0 100%); }
