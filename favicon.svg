@@ -1,6 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="8" fill="#0F172A"/>
-  <text x="32" y="38" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" font-size="22" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">pragility</text>
-  <circle cx="22" cy="24" r="2.5" fill="#dc2626"/>
-  <circle cx="35" cy="24" r="2.5" fill="#dc2626"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 110">
+  <text x="60" y="72" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" font-size="48" fill="#0F172A" text-anchor="middle" dominant-baseline="middle">pragility</text>
+  <circle cx="38.5" cy="42" r="3.5" fill="#dc2626"/>
+  <circle cx="63.5" cy="42" r="3.5" fill="#dc2626"/>
 </svg>
