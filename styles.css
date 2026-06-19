@@ -50,8 +50,8 @@ a:hover{color:var(--cta-hover)}
 .nav-logo{font-family:var(--font-body);font-weight:700;font-size:1.3rem;color:var(--text);text-decoration:none;letter-spacing:-.01em}
 .nav-logo:hover{color:var(--text)}
 .nav-logo-text{position:relative}
-.i-dot{position:relative;display:inline-block}
-.i-dot::before{content:'';position:absolute;top:-0.4em;left:50%;transform:translateX(-50%);width:6px;height:6px;background:#dc2626;border-radius:50%;pointer-events:none}
+.logo-i{position:relative}
+.logo-i::after{content:'';position:absolute;top:-0.35em;left:50%;transform:translateX(-50%);width:5px;height:5px;background:#dc2626;border-radius:50%}
 .nav-links{display:flex;align-items:center;gap:20px}
 .nav-link{font-size:.85rem;font-weight:500;color:var(--text-muted)}
 .nav-link:hover{color:var(--cta)}
