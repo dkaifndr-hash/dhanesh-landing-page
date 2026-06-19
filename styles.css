@@ -291,7 +291,7 @@ a:hover{color:var(--cta-hover)}
 /* Footer */
 .footer{background:var(--primary);color:rgba(255,255,255,.6);padding:48px 0 24px}
 .footer-grid{display:grid;grid-template-columns:1fr 2fr;gap:48px;margin-bottom:32px}
-.footer-logo{display:inline-block;margin-bottom:12px}
+.footer-logo{display:inline-block;margin-bottom:12px;padding:8px 16px;background:#fff;border-radius:var(--radius-sm)}
 .footer-logo-img{height:auto;width:160px;display:block}
 .footer-contact{margin-top:16px}
 .footer-contact p{font-size:.82rem;color:rgba(255,255,255,.5);margin-bottom:4px}
