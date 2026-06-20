@@ -67,7 +67,7 @@ a{color:var(--cta);text-decoration:none;transition:color var(--duration) var(--e
 a:hover{color:var(--cta-hover)}
 strong{color:var(--text);font-weight:700}
 .container{max-width:var(--max-width);margin:0 auto;padding:0 24px}
-.section{padding:80px 0;position:relative}
+.section{padding:64px 0;position:relative}
 
 /* Nav */
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,251,252,0.95);backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);border-bottom:1px solid var(--border-light);padding:12px 0;transition:box-shadow var(--duration) var(--ease)}
@@ -125,7 +125,7 @@ strong{color:var(--text);font-weight:700}
 
 /* About */
 .about{background:var(--bg)}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
 .about-content p{margin-bottom:16px;line-height:1.75;color:var(--text-body)}
 .about-content strong{color:var(--text)}
 .about-lead{font-size:1.15rem;color:var(--text);margin-bottom:20px;font-weight:500}
@@ -174,7 +174,7 @@ strong{color:var(--text);font-weight:700}
 .services{background:var(--bg)}
 .services .eyebrow,.services h2{text-align:center;display:block;margin-left:auto;margin-right:auto}
 .services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
-.service-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;display:flex;flex-direction:column;transition:all var(--duration) var(--ease);position:relative}
+.service-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;display:flex;flex-direction:column;transition:all var(--duration) var(--ease);position:relative}
 .service-card:hover{border-color:var(--cta);box-shadow:var(--shadow-lg);transform:translateY(-3px)}
 .service-card.featured{border-color:var(--accent);box-shadow:var(--shadow-md);background:linear-gradient(135deg,var(--bg-card) 0%,var(--accent-light) 100%)}
 .service-badge{position:absolute;top:-12px;left:24px;background:var(--accent);color:var(--primary);font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:4px 12px;border-radius:var(--radius-pill)}
