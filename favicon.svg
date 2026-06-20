@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <rect width="512" height="512" rx="64" fill="#0F172A"/>
-  <circle cx="160" cy="256" r="52" fill="#dc2626"/>
-  <circle cx="352" cy="256" r="52" fill="#dc2626"/>
+  <text x="256" y="300" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" font-size="160" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">pragility</text>
+  <circle cx="175" cy="170" r="24" fill="#dc2626"/>
+  <circle cx="337" cy="170" r="24" fill="#dc2626"/>
 </svg>
