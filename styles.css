@@ -35,6 +35,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text-body);line-he
 /* Typography */
 h1,h2,h3,h4{font-family:var(--font-display);color:var(--text);line-height:1.15;letter-spacing:-0.02em}
 h1{font-size:clamp(2.6rem,5.5vw,4rem);font-weight:700;margin-bottom:24px}
+.hero h1{font-size:clamp(2.4rem,4.8vw,3.6rem);font-weight:700;margin-bottom:24px}
 h2{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;margin-bottom:20px}
 h3{font-size:1.2rem;font-weight:600;margin-bottom:10px;color:var(--text)}
 p{margin-bottom:16px}
