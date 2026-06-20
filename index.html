@@ -42,6 +42,11 @@
             <a href="#faq" class="nav-link">FAQ</a>
             <a href="https://calendly.com/coachdhaneshk" target="_blank" rel="noopener" class="nav-cta">Book a Free Call</a>
         </div>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+        </button>
     </div>
 </nav>
 
@@ -463,6 +468,25 @@
     window.addEventListener('scroll', function() {
         if (!ticking) { window.requestAnimationFrame(function() { nav.classList.toggle('scrolled', window.scrollY > 20); ticking = false; }); ticking = true; }
     });
+
+    // Mobile nav toggle
+    var navToggle = document.getElementById('navToggle');
+    var navLinks = document.querySelector('.nav-links');
+    if (navToggle && navLinks) {
+        navToggle.addEventListener('click', function() {
+            navToggle.classList.toggle('active');
+            navLinks.classList.toggle('open');
+            navToggle.setAttribute('aria-expanded', navLinks.classList.contains('open'));
+        });
+        // Close menu when clicking a link
+        navLinks.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                navToggle.classList.remove('active');
+                navLinks.classList.remove('open');
+                navToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+    }
 
     // Form
     var leadForm = document.getElementById('assessmentForm');
