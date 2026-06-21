@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 44" fill="none">
-  <text x="0" y="33" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" font-size="36" fill="#0F172A">pragility</text>
-  <circle cx="76" cy="14" r="4" fill="#dc2626"/>
-  <circle cx="92" cy="14" r="4" fill="#dc2626"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 40" fill="none">
+  <text x="4" y="30" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" font-size="28" fill="#0F172A" letter-spacing="-0.02em">pragility</text>
+  <circle cx="62" cy="12" r="3.5" fill="#dc2626"/>
+  <circle cx="86" cy="12" r="3.5" fill="#dc2626"/>
 </svg>
