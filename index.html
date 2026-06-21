@@ -211,7 +211,7 @@
         <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
         <div class="modal-header">
             <h2>Enterprise Agile & AI Assessment</h2>
-            <p>Rate your organization across 10 key dimensions. Get your personalized report instantly.</p>
+            <p>Rate your organization across 15 key dimensions covering Agile maturity and AI readiness. Get your personalized report instantly.</p>
         </div>
         <div class="modal-body" id="assessmentBody">
             <!-- Questions injected by JS -->
@@ -266,7 +266,7 @@
     <div class="section-inner">
         <div class="footer-grid">
             <div class="footer-brand">
-                <img src="pragility-logo-footer.png" alt="Pragility" height="20" style="margin-bottom:8px;opacity:0.8">
+                <img src="pragility-logo-cropped.png" alt="Pragility" height="22" style="margin-bottom:8px">
                 <p>Human-First AI, Agile & Digital Transformation Consulting</p>
                 <p class="footer-contact"><a href="mailto:info@pragility.ca">info@pragility.ca</a> · Oakville, ON</p>
             </div>
@@ -311,11 +311,16 @@
         {cat:'Process',q:'How mature are your Agile delivery processes?',opts:['Ad-hoc processes, no standardization','Basic processes exist but inconsistently followed','Well-defined processes with regular refinement','Optimized processes with continuous improvement loops']},
         {cat:'Delivery',q:'How predictable is your delivery of value to customers?',opts:['Unpredictable, frequent missed commitments','Somewhat predictable with occasional slips','Generally predictable with minor variances','Highly predictable with continuous flow of value']},
         {cat:'Collaboration',q:'How effectively do teams collaborate across the organization?',opts:['Siloed teams with limited cross-functional interaction','Some collaboration but barriers remain','Regular cross-functional collaboration with shared goals','Seamless collaboration with autonomous, empowered teams']},
+        {cat:'AI Strategy',q:'How would you describe your organization\'s AI strategy?',opts:['No AI strategy exists','Exploring AI but no clear direction','Defined AI strategy with pilot initiatives','AI strategy integrated into business strategy with scaling']},
+        {cat:'AI Governance',q:'How mature is your AI governance framework?',opts:['No AI governance in place','Basic guidelines exist but not enforced','Formal governance with ethics review and accountability','Comprehensive governance with continuous monitoring and adaptation']},
+        {cat:'AI Literacy',q:'How would you rate AI literacy across your workforce?',opts:['Limited understanding of AI capabilities','Basic awareness but limited practical knowledge','Good understanding with hands-on training programs','Strong AI literacy with continuous learning culture']},
+        {cat:'Human-AI Collaboration',q:'How well do your people work alongside AI tools?',opts:['AI tools are rarely used','Some teams experiment with AI but inconsistently','Regular AI-assisted workflows with human oversight','Seamless human-AI collaboration with continuous optimization']},
+        {cat:'AI Data Readiness',q:'How prepared is your data infrastructure for AI?',opts:['Data is siloed and inconsistent','Some data cleanup done but gaps remain','Clean, accessible data with governance','Advanced data platform enabling real-time AI insights']},
         {cat:'Customer Focus',q:'How well do you understand and respond to customer needs?',opts:['Limited customer insight, reactive approach','Some customer feedback collected but not systematically used','Regular customer feedback drives priorities','Deep customer empathy with continuous co-creation']},
         {cat:'Technical Practices',q:'How mature are your technical practices (CI/CD, testing, architecture)?',opts:['Minimal technical practices, manual processes','Basic practices in place but inconsistent','Mature practices with automation and quality focus','Advanced practices with continuous optimization']},
         {cat:'Metrics',q:'How effectively do you measure and use data for decision-making?',opts:['Limited metrics, decisions based on intuition','Some metrics collected but not consistently used','Key metrics tracked and used for improvement','Data-driven culture with real-time insights and adaptation']},
         {cat:'Learning',q:'How does your organization approach learning and development?',opts:['Limited investment in learning','Some training available but not strategic','Structured learning programs with skill development','Continuous learning culture with experimentation and knowledge sharing']},
-        {cat:'Scaling',q:'How well does your organization scale Agile practices?',opts:['No scaling attempts or failed attempts','Pilot teams only, scaling is a challenge','Multiple teams practicing Agile with some coordination','Enterprise-wide agility with continuous evolution']}
+        {cat:'Scaling',q:'How well does your organization scale Agile and AI practices?',opts:['No scaling attempts or failed attempts','Pilot teams only, scaling is a challenge','Multiple teams practicing with some coordination','Enterprise-wide agility and AI adoption with continuous evolution']}
     ];
     function openModal(){modal.classList.add('open');document.body.style.overflow='hidden';renderQ(0);}
     function closeModal(){modal.classList.remove('open');document.body.style.overflow='';currentQ=0;answers={};renderQ(0);}
@@ -344,11 +349,16 @@
         sorted.slice(0,3).forEach(function(cat){html+='<div class="rec-item"><strong>'+cat+':</strong> Focus on improving maturity in this area through targeted coaching and capability building.</div>';});
         html+='</div>';
         html+='<div class="report-cta"><h4>Get Your Full Report</h4><p>Enter your details below to receive your complete assessment report via email.</p>';
-        html+='<form class="report-form" id="reportForm"><input type="text" name="name" placeholder="Your full name" required><input type="email" name="email" placeholder="Work email" required><button type="submit" class="btn-primary" style="width:100%">Email Me the Report</button></form></div>';
+        html+='<form class="report-form" id="reportForm"><input type="text" name="name" placeholder="Your full name" required><input type="email" name="email" placeholder="Work email" required><button type="submit" class="btn-primary" style="width:100%">Email Me the Report</button></form>';
+        html+='<div class="report-share" style="margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">';
+        html+='<button class="btn-secondary" id="sendToSelfBtn" style="flex:1;min-width:140px">📧 Send to Myself</button>';
+        html+='<button class="btn-secondary" id="shareAssessmentBtn" style="flex:1;min-width:140px">🔗 Share Assessment</button>';
+        html+='</div></div>';
         body.innerHTML=html;
         progressFill.style.width='100%';
         progressText.textContent='Assessment Complete';
         document.getElementById('finishBtn').style.display='none';
+        // Form submit - email to Pragility
         document.getElementById('reportForm').addEventListener('submit',function(e){
             e.preventDefault();
             var f=e.target;
@@ -365,6 +375,26 @@
             mailtoBody+='\n---\nGenerated by Pragility Assessment Tool\nhttps://pragility.ca';
             window.location.href='mailto:info@pragility.ca?subject=My Enterprise Agile Assessment Report&body='+encodeURIComponent(mailtoBody);
             btn.textContent='Report Sent!';
+        });
+        // Send to self
+        document.getElementById('sendToSelfBtn').addEventListener('click',function(){
+            var mailtoBody='Enterprise Agile & AI Assessment Report\n\n';
+            mailtoBody+='Overall Score: '+avg.toFixed(1)+'/3.0 ('+level+')\n\n';
+            mailtoBody+='Category Scores:\n';
+            questions.forEach(function(q,i){mailtoBody+='- '+q.cat+': '+answers[i]+'/3\n';});
+            mailtoBody+='\nTop Recommendations:\n';
+            sorted.slice(0,3).forEach(function(cat){mailtoBody+='- '+cat+': Focus on improving maturity through targeted coaching.\n';});
+            mailtoBody+='\n---\nGenerated by Pragility Assessment Tool\nhttps://pragility.ca';
+            var subject='My Enterprise Agile & AI Assessment Report';
+            window.location.href='mailto:?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(mailtoBody);
+        });
+        // Share assessment link
+        document.getElementById('shareAssessmentBtn').addEventListener('click',function(){
+            var shareUrl='https://pragility.ca/#assessment';
+            if(navigator.clipboard){navigator.clipboard.writeText(shareUrl);}
+            var btn=document.getElementById('shareAssessmentBtn');
+            var orig=btn.textContent;btn.textContent='✓ Link Copied!';
+            setTimeout(function(){btn.textContent=orig;},2000);
         });
     }
     if(startBtn)startBtn.addEventListener('click',openModal);
