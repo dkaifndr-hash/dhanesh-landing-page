@@ -34,9 +34,22 @@
 
 <main>
 
-<!-- HERO: Split layout with image, minimal whitespace -->
+<!-- HERO: Abstract visual representing Human-AI collaboration -->
 <section class="hero" aria-label="Introduction">
-    <div class="hero-image"><img src="images/ai-technology.jpg" alt="AI and human collaboration" loading="eager"></div>
+    <div class="hero-visual">
+        <div class="abstract-shape shape-1"></div>
+        <div class="abstract-shape shape-2"></div>
+        <div class="abstract-shape shape-3"></div>
+        <div class="abstract-shape shape-4"></div>
+        <div class="grid-overlay"></div>
+        <div class="floating-elements">
+            <div class="float-item fi-1"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <div class="float-item fi-2"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+            <div class="float-item fi-3"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div class="float-item fi-4"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+            <div class="float-item fi-5"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+        </div>
+    </div>
     <div class="hero-content">
         <p class="hero-eyebrow">Human-First AI · Enterprise Agile · Digital Transformation</p>
         <h1>Transforming Organizations Through<br><em>People, Agility, and AI.</em></h1>
@@ -46,10 +59,10 @@
             <a href="#services" class="btn-outline">Explore Services</a>
         </div>
         <div class="hero-stats">
-            <div><span>20+</span> Years</div>
-            <div><span>500+</span> Leaders</div>
-            <div><span>50+</span> Teams</div>
-            <div><span>40%</span> Faster Delivery</div>
+            <div><span>20+</span><small>Years</small></div>
+            <div><span>500+</span><small>Leaders</small></div>
+            <div><span>50+</span><small>Teams</small></div>
+            <div><span>40%</span><small>Faster</small></div>
         </div>
     </div>
 </section>
@@ -89,12 +102,13 @@
                 <h2>Founded on a Simple Belief</h2>
                 <p class="lead">Sustainable transformation happens when people are trusted, empowered, and actively involved in shaping change.</p>
                 <p>Throughout our experience leading large-scale transformations across financial services, telecommunications, technology, and consulting sectors, we observed a common pattern. Organizations often focus heavily on frameworks, processes, and technology while overlooking the people responsible for making transformation successful.</p>
-            </div>
-            <div>
-                <div class="image-card"><img src="images/consulting.jpg" alt="Consulting" loading="lazy"></div>
                 <div class="highlight-box">
                     <p><strong>Our goal is not to create dependency.</strong> Our goal is to help organizations develop the confidence, capability, and culture required to sustain transformation long after our engagement concludes.</p>
                 </div>
+            </div>
+            <div>
+                <div class="image-card"><img src="images/consulting.jpg" alt="Strategic consulting session" loading="lazy"></div>
+                <div class="image-card" style="margin-top:16px"><img src="images/leadership.jpg" alt="Leadership development" loading="lazy"></div>
             </div>
         </div>
     </div>
@@ -116,7 +130,7 @@
             </div>
             <div class="card">
                 <p class="section-label">Philosophy</p>
-                <h3>Human-Centered Transformation in an AI-Driven World</h3>
+                <h3>Human-Centered Transformation</h3>
                 <p>AI should augment human intelligence—not replace it. The future of work is Human and AI working together.</p>
             </div>
         </div>
@@ -134,7 +148,7 @@
                 <p>Our objective is not simply AI adoption. <strong>Our objective is AI adoption that people trust, understand, and confidently use.</strong></p>
             </div>
             <div>
-                <div class="image-card"><img src="images/ai-technology.jpg" alt="AI Technology" loading="lazy"></div>
+                <div class="image-card"><img src="images/ai-technology.jpg" alt="AI and human collaboration" loading="lazy"></div>
             </div>
         </div>
         <div class="capabilities-grid">
@@ -155,7 +169,7 @@
         <h2>Comprehensive Transformation Expertise</h2>
         <div class="services-grid">
             <div class="service-card">
-                <div class="service-img"><img src="images/strategy-plan.jpg" alt="Enterprise Agile" loading="lazy"></div>
+                <div class="service-img"><img src="images/strategy-plan.jpg" alt="Enterprise Agile Transformation" loading="lazy"></div>
                 <div class="service-body">
                     <h3>Enterprise Agile Transformation</h3>
                     <p>Helping organizations become more adaptive, responsive, and customer-focused.</p>
@@ -166,14 +180,13 @@
                         <li>Agile Maturity Assessments</li>
                         <li>Product Operating Model Transformation</li>
                         <li>Lean Portfolio Management</li>
-                        <li>Delivery Performance Optimization</li>
                     </ul>
                     <p class="outcome"><strong>Outcomes:</strong> Faster delivery, improved predictability, stronger collaboration, increased agility.</p>
                 </div>
             </div>
             <div class="service-card featured">
                 <div class="service-badge">Core Differentiator</div>
-                <div class="service-img"><img src="images/ai-technology.jpg" alt="AI Enablement" loading="lazy"></div>
+                <div class="service-img"><img src="images/ai-technology.jpg" alt="Human-First AI Enablement" loading="lazy"></div>
                 <div class="service-body">
                     <h3>Human-First AI Enablement</h3>
                     <p>Helping organizations adopt AI responsibly and effectively.</p>
@@ -212,7 +225,6 @@
                     <ul>
                         <li>Executive Coaching</li>
                         <li>Transformation Advisory</li>
-                        <li>Strategic Planning Facilitation</li>
                         <li>Leadership Alignment Workshops</li>
                         <li>Change Leadership Development</li>
                         <li>Executive Team Effectiveness</li>
@@ -269,13 +281,7 @@
     <div class="section-inner">
         <p class="section-label">Industries Served</p>
         <div class="industries-grid">
-            <span>Banking & Financial Services</span>
-            <span>Insurance</span>
-            <span>Telecommunications</span>
-            <span>Technology & Software</span>
-            <span>Professional Services</span>
-            <span>Enterprise Shared Services</span>
-            <span>Product & Digital Organizations</span>
+            <span>Banking & Financial Services</span><span>Insurance</span><span>Telecommunications</span><span>Technology & Software</span><span>Professional Services</span><span>Product & Digital</span>
         </div>
     </div>
 </section>
