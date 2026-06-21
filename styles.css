@@ -74,18 +74,18 @@ ul{list-style:none;padding:0;margin:0}
 .trust-logos span:hover{opacity:1;color:var(--navy)}
 
 /* TWO COL */
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
 
 /* IMAGE CARD */
 .image-card{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
 .image-card img{width:100%;height:260px;object-fit:cover}
 
 /* ABOUT IMAGES */
-.about-images{display:flex;flex-direction:column;gap:16px}
+.about-images{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-self:start}
 .img-primary{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
-.img-primary img{width:100%;height:220px;object-fit:cover}
+.img-primary img{width:100%;height:180px;object-fit:cover}
 .img-secondary{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
-.img-secondary img{width:100%;height:140px;object-fit:cover}
+.img-secondary img{width:100%;height:180px;object-fit:cover}
 
 /* PHILOSOPHY */
 .philosophy{background:var(--bg-subtle);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
