@@ -187,7 +187,9 @@
                 </ul>
             </div>
             <div class="assessment-form-wrap">
-                <form class="assessment-form" id="assessmentForm" novalidate>
+                <form class="assessment-form" id="assessmentForm" action="https://formspree.io/f/xpwzgkby" method="POST" novalidate>
+                    <input type="hidden" name="_subject" value="New Assessment Request from Pragility Website">
+                    <input type="hidden" name="_format" value="plain">
                     <div class="form-row">
                         <div class="form-group"><input type="text" name="name" placeholder="Your full name" required autocomplete="name" aria-required="true" minlength="2" maxlength="100"></div>
                         <div class="form-group"><input type="email" name="email" placeholder="Work email" required autocomplete="email" aria-required="true" inputmode="email"></div>
@@ -280,7 +282,9 @@
             e.preventDefault();
             var btn=document.getElementById('submitBtn');
             btn.textContent='Sending...';btn.disabled=true;
-            setTimeout(function(){btn.textContent='Sent! Check your email';btn.style.background='#059669';form.reset();setTimeout(function(){btn.textContent='Send Me the Assessment';btn.style.background='';btn.disabled=false;},3000);},800);
+            fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}})
+            .then(function(r){if(r.ok){btn.textContent='Sent! Check your email';btn.style.background='#059669';form.reset();}else{btn.textContent='Error. Try again.';}setTimeout(function(){btn.textContent='Send Me the Assessment';btn.style.background='';btn.disabled=false;},3000);})
+            .catch(function(){btn.textContent='Error. Try again.';setTimeout(function(){btn.textContent='Send Me the Assessment';btn.style.background='';btn.disabled=false;},3000);});
         });
     }
 })();
