@@ -248,7 +248,7 @@ body.bar-hidden .hero{padding-top:100px!important}
 .footer-bottom p{font-size:.68rem;color:rgba(255,255,255,0.2)}
 
 /* STAT BOOK (5th tile) */
-.stat-book{border-left:1.5px solid rgba(202,138,4,0.3);padding-left:4px}
+.stat-book{border-right:1.5px solid rgba(202,138,4,0.3);padding-right:4px}
 .stat-book-link{display:block;text-decoration:none;color:inherit;transition:opacity .2s}
 .stat-book-link:hover{opacity:.7;text-decoration:none;color:inherit}
 .stat-book-link span{color:var(--gold)!important}
