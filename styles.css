@@ -234,8 +234,24 @@ ul{list-style:none;padding:0;margin:0}
 .footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:12px;text-align:center}
 .footer-bottom p{font-size:.68rem;color:rgba(255,255,255,0.2)}
 
+/* BOOK LAUNCH */
+.book-section{border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.book-grid{display:grid;grid-template-columns:260px 1fr;gap:64px;align-items:center}
+.book-cover-wrap img{border-radius:10px;box-shadow:0 28px 70px rgba(0,0,0,0.22),0 8px 24px rgba(0,0,0,0.12);display:block;width:260px}
+.book-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.65rem;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px}
+.book-eyebrow::before{content:'';width:20px;height:2px;background:var(--gold);display:inline-block}
+.book-title-large{font-size:clamp(1.9rem,3.2vw,2.6rem);line-height:1.1;margin-bottom:6px;color:var(--navy)}
+.book-subtitle-text{color:var(--gold);font-size:.95rem;font-weight:600;letter-spacing:.02em;margin-bottom:20px;font-style:italic}
+.book-desc-text{color:var(--text-body);font-size:.92rem;line-height:1.8;margin-bottom:28px;max-width:500px}
+.book-actions{display:flex;gap:12px;margin-bottom:18px;flex-wrap:wrap;align-items:center}
+.book-amazon-btn{display:inline-flex;align-items:center;gap:8px;background:#FF9900;color:#111;font-weight:700;font-size:.85rem;padding:13px 22px;border-radius:var(--radius);text-decoration:none;transition:all 0.2s;border:none}
+.book-amazon-btn:hover{background:#e68900;color:#111;transform:translateY(-1px)}
+.book-author-line{font-size:.78rem;color:var(--text-muted)}
+.book-author-line strong{color:var(--text)}
+
 /* RESPONSIVE */
 @media(max-width:900px){
+    .book-grid{grid-template-columns:200px 1fr;gap:36px}
     .hero{padding:80px 0 0}
     .hero-inner{grid-template-columns:1fr;gap:28px}
     .hero-image img{height:260px}
@@ -253,6 +269,11 @@ ul{list-style:none;padding:0;margin:0}
     .nav-toggle{display:flex}
 }
 @media(max-width:600px){
+    .book-grid{grid-template-columns:1fr;text-align:center;gap:28px}
+    .book-cover-wrap{text-align:center}
+    .book-cover-wrap img{width:180px;margin:0 auto}
+    .book-actions{justify-content:center}
+    .book-eyebrow{justify-content:center}
     .hero-content{padding-bottom:20px}
     .hero-cta{flex-direction:column}
     .hero-cta .btn-primary,.hero-cta .btn-secondary{width:100%;justify-content:center}

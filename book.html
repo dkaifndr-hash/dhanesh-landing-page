@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://pragility.ca/book.html">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Beyond Agile, Before AI — Build What's Worth Amplifying | Dhanesh Kumar</title>
+    <meta name="description" content="A diagnosis of why well-resourced transformations stall and a practical framework for building the organizational conditions that make any methodology — and eventually any AI — worth deploying.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Book page specific */
+        .book-hero{padding:120px 0 80px;background:var(--navy);overflow:hidden;position:relative}
+        .book-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 80% 50%,rgba(202,138,4,0.08) 0%,transparent 70%);pointer-events:none}
+        .book-hero-inner{max-width:var(--max-width);margin:0 auto;padding:0 24px;display:grid;grid-template-columns:300px 1fr;gap:72px;align-items:center;position:relative;z-index:1}
+        .book-hero-cover img{width:300px;border-radius:10px;box-shadow:0 40px 80px rgba(0,0,0,0.5),0 10px 30px rgba(0,0,0,0.3)}
+        .book-hero-content .book-eyebrow{color:var(--gold)}
+        .book-hero-content h1{color:#fff;font-size:clamp(2.4rem,4.5vw,3.4rem);line-height:1.05;margin-bottom:8px}
+        .book-hero-content h1 em{color:var(--gold);font-style:italic}
+        .book-hero-subtitle{color:var(--gold);font-size:1.1rem;font-weight:600;font-style:italic;margin-bottom:24px;letter-spacing:.01em}
+        .book-hero-desc{color:rgba(255,255,255,0.72);font-size:1rem;line-height:1.8;margin-bottom:32px;max-width:540px}
+        .book-hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+        .book-hero-meta{display:flex;gap:20px;flex-wrap:wrap}
+        .book-meta-item{display:flex;align-items:center;gap:6px;font-size:.78rem;color:rgba(255,255,255,0.4)}
+        .book-meta-item strong{color:rgba(255,255,255,0.7);font-weight:600}
+
+        /* About the book */
+        .book-about{background:var(--bg)}
+        .book-about-inner{max-width:740px;margin:0 auto;padding:0 24px;text-align:center}
+        .book-about-inner h2{margin-bottom:16px}
+        .book-about-inner p{font-size:1rem;line-height:1.85;color:var(--text-body);margin-bottom:16px}
+        .book-problem{background:var(--bg-subtle);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:20px 24px;text-align:left;margin:28px 0}
+        .book-problem p{font-size:.95rem;color:var(--text);font-weight:500;margin-bottom:0;line-height:1.7}
+
+        /* What you'll discover */
+        .book-discover{background:var(--bg-subtle);border-top:1px solid var(--border)}
+        .discover-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:32px}
+        .discover-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:all 0.2s}
+        .discover-card:hover{border-color:var(--gold);box-shadow:var(--shadow-md)}
+        .discover-num{font-size:.65rem;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px}
+        .discover-card h4{font-size:.95rem;color:var(--navy);margin-bottom:8px;line-height:1.3}
+        .discover-card p{font-size:.82rem;color:var(--text-muted);line-height:1.55;margin-bottom:0}
+
+        /* Who this is for */
+        .book-for{background:var(--navy)}
+        .book-for .section-inner{max-width:860px;margin:0 auto;padding:0 24px;text-align:center}
+        .book-for h2{color:#fff}
+        .book-for-desc{color:rgba(255,255,255,0.65);font-size:.95rem;margin-bottom:36px;line-height:1.8}
+        .for-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;text-align:left}
+        .for-item{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius);padding:18px}
+        .for-item h4{color:#fff;font-size:.88rem;margin-bottom:5px}
+        .for-item p{color:rgba(255,255,255,0.5);font-size:.78rem;margin-bottom:0;line-height:1.5}
+
+        /* Author */
+        .book-author-section{background:var(--bg)}
+        .author-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:56px;align-items:center}
+        .author-img-wrap{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-md)}
+        .author-img-wrap img{width:100%;height:380px;object-fit:cover;object-position:center top}
+        .author-details .author-name{font-size:1.6rem;color:var(--navy);margin-bottom:4px}
+        .author-title{font-size:.82rem;color:var(--gold);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:20px}
+        .author-details p{font-size:.9rem;color:var(--text-body);line-height:1.8;margin-bottom:14px}
+        .author-stats{display:flex;gap:28px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border);flex-wrap:wrap}
+        .author-stat span{display:block;font-size:1.5rem;font-weight:700;color:var(--navy)}
+        .author-stat small{font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em}
+
+        /* Final CTA */
+        .book-cta-section{background:var(--bg-subtle);border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center}
+        .book-cta-inner{max-width:560px;margin:0 auto;padding:0 24px}
+        .book-cta-inner h2{margin-bottom:12px}
+        .book-cta-inner p{color:var(--text-body);margin-bottom:28px;font-size:.95rem;line-height:1.75}
+        .book-cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+        /* Responsive */
+        @media(max-width:900px){
+            .book-hero-inner{grid-template-columns:220px 1fr;gap:40px}
+            .book-hero-cover img{width:220px}
+            .discover-grid{grid-template-columns:repeat(2,1fr)}
+            .for-grid{grid-template-columns:repeat(2,1fr)}
+            .author-grid{grid-template-columns:1fr}
+        }
+        @media(max-width:600px){
+            .book-hero{padding:90px 0 56px}
+            .book-hero-inner{grid-template-columns:1fr;gap:32px;text-align:center}
+            .book-hero-cover{text-align:center}
+            .book-hero-cover img{width:200px;margin:0 auto}
+            .book-hero-desc{margin-left:auto;margin-right:auto}
+            .book-hero-actions{justify-content:center}
+            .book-hero-meta{justify-content:center}
+            .discover-grid,.for-grid{grid-template-columns:1fr}
+            .author-img-wrap img{height:280px}
+            .book-cta-actions{flex-direction:column;align-items:center}
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav" role="navigation" aria-label="Main">
+    <div class="nav-inner">
+        <a href="/" class="nav-logo"><img src="logos/pragility_nav_2x.png" alt="Pragility" height="32"></a>
+        <div class="nav-links" id="navLinks">
+            <a href="/#about" class="nav-link">About</a>
+            <a href="/#services" class="nav-link">Services</a>
+            <a href="/#assessment" class="nav-link">Free Assessment</a>
+            <a href="/book.html" class="nav-link" style="color:var(--gold);font-weight:600">The Book</a>
+            <a href="/#contact" class="nav-link">Contact</a>
+            <a href="https://calendly.com/coachdhaneshk" target="_blank" rel="noopener" class="nav-cta">Book a Call</a>
+        </div>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+</nav>
+
+<main>
+
+<!-- BOOK HERO -->
+<section class="book-hero" aria-label="Beyond Agile, Before AI">
+    <div class="book-hero-inner">
+        <div class="book-hero-cover">
+            <img src="images/cover-front.jpg" alt="Beyond Agile, Before AI — book cover" loading="eager">
+        </div>
+        <div class="book-hero-content">
+            <p class="book-eyebrow" style="display:inline-flex;align-items:center;gap:8px;font-size:.65rem;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.12em;margin-bottom:14px"><span style="width:20px;height:2px;background:var(--gold);display:inline-block"></span>Now Available on Amazon · Business &amp; Leadership</p>
+            <h1>Beyond Agile,<br><em>Before AI</em></h1>
+            <p class="book-hero-subtitle">Build What's Worth Amplifying</p>
+            <p class="book-hero-desc">A diagnosis of why well-resourced transformations stall — and a practical framework for building the organizational conditions that make any methodology, and eventually any AI, worth deploying.</p>
+            <div class="book-hero-actions">
+                <a href="https://mybook.to/BeyondAgileBeforeAI" target="_blank" rel="noopener" class="book-amazon-btn">Get the Book on Amazon →</a>
+                <a href="https://calendly.com/coachdhaneshk" target="_blank" rel="noopener" class="btn-outline">Work with the Author</a>
+            </div>
+            <div class="book-hero-meta">
+                <div class="book-meta-item"><strong>Author</strong> Dhanesh Kumar</div>
+                <div class="book-meta-item"><strong>Category</strong> Business &amp; Leadership</div>
+                <div class="book-meta-item"><strong>Publisher</strong> Amazon KDP</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT THE BOOK -->
+<section class="section book-about" aria-label="About the Book">
+    <div class="book-about-inner">
+        <p class="section-label">About the Book</p>
+        <h2>Why Transformations Stall — and What Actually Fixes Them</h2>
+        <p>Most organizations attempting transformation have everything they need on paper: executive sponsorship, allocated budget, capable people, and the right methodology. Yet the results rarely match the ambition. Sprints run. Frameworks launch. AI tools get purchased. And still — meaningful change doesn't take root.</p>
+        <div class="book-problem">
+            <p>"The problem isn't the methodology. The problem is that the organization wasn't built to sustain it. You can't amplify what isn't worth amplifying."</p>
+        </div>
+        <p><em>Beyond Agile, Before AI</em> is a clear-eyed diagnosis of why even well-resourced, well-intentioned transformations fail to stick — and a practical framework for building the organizational conditions that make lasting change possible. Not just for Agile. Not just for AI. For any methodology worth deploying.</p>
+        <p>Written by Dhanesh Kumar, with 20+ years guiding enterprise transformations across banking, insurance, and technology, this book bridges the gap between theoretical frameworks and the messy, human reality of organizational change.</p>
+    </div>
+</section>
+
+<!-- WHAT YOU'LL DISCOVER -->
+<section class="section book-discover" aria-label="What You'll Discover">
+    <div class="section-inner">
+        <div class="section-header">
+            <p class="section-label">Inside the Book</p>
+            <h2>What You'll Discover</h2>
+        </div>
+        <div class="discover-grid">
+            <div class="discover-card">
+                <p class="discover-num">01</p>
+                <h4>The Amplification Trap</h4>
+                <p>Why AI and Agile accelerate dysfunction as much as they accelerate value — and how to recognize if your organization is in the trap.</p>
+            </div>
+            <div class="discover-card">
+                <p class="discover-num">02</p>
+                <h4>What's Actually Worth Amplifying</h4>
+                <p>A diagnostic framework to assess the organizational conditions — culture, leadership, ways of working — that determine whether change sticks.</p>
+            </div>
+            <div class="discover-card">
+                <p class="discover-num">03</p>
+                <h4>Human-First Foundations</h4>
+                <p>Why sustainable transformation begins with people, not platforms — and the specific leadership behaviours that create the conditions for change.</p>
+            </div>
+            <div class="discover-card">
+                <p class="discover-num">04</p>
+                <h4>Before You Go Agile</h4>
+                <p>The organizational prerequisites that most Agile implementations skip — and what happens when you try to skip them.</p>
+            </div>
+            <div class="discover-card">
+                <p class="discover-num">05</p>
+                <h4>Before You Deploy AI</h4>
+                <p>A readiness model for Human-First AI adoption — covering governance, literacy, trust, and the human-in-the-loop design patterns that make AI safe to scale.</p>
+            </div>
+            <div class="discover-card">
+                <p class="discover-num">06</p>
+                <h4>Building for Sustained Change</h4>
+                <p>A practical roadmap for leaders who want lasting outcomes — not just initial adoption — from their transformation investments.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHO THIS IS FOR -->
+<section class="section book-for" aria-label="Who This Book Is For">
+    <div class="section-inner">
+        <p class="section-label" style="color:var(--gold)">Who This Book Is For</p>
+        <h2>Written for Leaders at the Inflection Point</h2>
+        <p class="book-for-desc">If you're responsible for organizational change — and frustrated that smart, well-funded efforts aren't producing durable results — this book was written for you.</p>
+        <div class="for-grid">
+            <div class="for-item">
+                <h4>Executive Leaders</h4>
+                <p>CEOs, COOs, and C-suite sponsors who own the transformation mandate and need to understand why methodology alone isn't enough.</p>
+            </div>
+            <div class="for-item">
+                <h4>Transformation Leaders</h4>
+                <p>CTOs, CDOs, and transformation officers navigating both Agile maturity and AI readiness at enterprise scale.</p>
+            </div>
+            <div class="for-item">
+                <h4>Agile Coaches &amp; Consultants</h4>
+                <p>Practitioners who've seen the patterns and want a shared language for the foundational work that makes frameworks succeed.</p>
+            </div>
+            <div class="for-item">
+                <h4>HR &amp; People Leaders</h4>
+                <p>Leaders responsible for culture, capability, and organizational design who want to understand the human side of transformation.</p>
+            </div>
+            <div class="for-item">
+                <h4>Product &amp; Delivery Leaders</h4>
+                <p>VPs of Product, Engineering, and Delivery who want their teams to move faster — but sustainably, not just busily.</p>
+            </div>
+            <div class="for-item">
+                <h4>AI Strategy Leaders</h4>
+                <p>Those building the business case for AI adoption and wondering why the organizational conditions aren't ready to support it.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT THE AUTHOR -->
+<section class="section book-author-section" id="author" aria-label="About the Author">
+    <div class="section-inner">
+        <div class="author-grid">
+            <div>
+                <div class="author-img-wrap">
+                    <img src="images/leadership-coaching-2.jpg" alt="Dhanesh Kumar — Enterprise Transformation Advisor" loading="lazy">
+                </div>
+            </div>
+            <div class="author-details">
+                <p class="section-label">About the Author</p>
+                <h2 class="author-name">Dhanesh Kumar</h2>
+                <p class="author-title">Enterprise Transformation Advisor · Founder, Pragility</p>
+                <p>Dhanesh Kumar is an Enterprise Transformation Advisor with over 20 years of experience helping organizations navigate complex change across banking, insurance, telecommunications, and technology sectors.</p>
+                <p>As the founder of Pragility, Dhanesh works at the intersection of Human-First AI Enablement, Enterprise Agility, and Leadership Development — helping leaders build the organizational conditions that make transformation sustainable, not just started.</p>
+                <p>His work is grounded in a simple belief: <strong>technology should serve people, not replace them.</strong> <em>Beyond Agile, Before AI</em> is a distillation of what he's learned guiding 500+ leaders and 50+ enterprise teams through the hardest parts of transformation.</p>
+                <div class="author-stats">
+                    <div class="author-stat"><span>20+</span><small>Years Experience</small></div>
+                    <div class="author-stat"><span>500+</span><small>Leaders Coached</small></div>
+                    <div class="author-stat"><span>50+</span><small>Enterprise Teams</small></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="section book-cta-section" aria-label="Get the Book">
+    <div class="book-cta-inner">
+        <p class="section-label">Get Your Copy</p>
+        <h2>Build What's Worth Amplifying</h2>
+        <p>Available now on Amazon. Start building the organizational conditions that make every methodology — and every AI investment — actually deliver.</p>
+        <div class="book-cta-actions">
+            <a href="https://mybook.to/BeyondAgileBeforeAI" target="_blank" rel="noopener" class="book-amazon-btn">Get the Book on Amazon →</a>
+            <a href="https://calendly.com/coachdhaneshk" target="_blank" rel="noopener" class="btn-secondary">Work with Dhanesh</a>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer class="footer" role="contentinfo">
+    <div class="section-inner">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <img src="logos/pragility_footer_2x_white.png" alt="Pragility" height="22" style="margin-bottom:8px">
+                <p>Human-First AI, Agile &amp; Digital Transformation Consulting</p>
+                <p class="footer-contact"><a href="mailto:info@pragility.ca">info@pragility.ca</a> · Oakville, ON</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col"><h4>Services</h4><a href="/#services">Enterprise Agile</a><a href="/#ai-enablement">AI Enablement</a><a href="/#services">Digital Transformation</a><a href="/#services">Executive Advisory</a></div>
+                <div class="footer-col"><h4>Company</h4><a href="/#about">About</a><a href="/book.html">The Book</a><a href="/#assessment">Free Assessment</a><a href="/#contact">Contact</a></div>
+                <div class="footer-col"><h4>Legal</h4><a href="/privacy-policy.html">Privacy Policy</a><a href="/terms-of-service.html">Terms of Service</a><a href="/security.html">Security</a></div>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 Pragility. All rights reserved.</p></div>
+    </div>
+</footer>
+
+<script>
+(function(){
+    var toggle=document.getElementById('navToggle');
+    var links=document.getElementById('navLinks');
+    if(toggle&&links){
+        toggle.addEventListener('click',function(){links.classList.toggle('open');toggle.classList.toggle('active');});
+        links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open');toggle.classList.remove('active');});});
+    }
+})();
+</script>
+</body>
+</html>
