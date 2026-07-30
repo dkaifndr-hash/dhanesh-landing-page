@@ -325,7 +325,7 @@
 
 <script>
 (function(){
-    var nav=document.getElementById('nav');
+    var nav=document.querySelector('.nav');
     var tick=false;
     window.addEventListener('scroll',function(){
         if(!tick){window.requestAnimationFrame(function(){nav.classList.toggle('scrolled',window.scrollY>20);tick=false;});tick=true;}
