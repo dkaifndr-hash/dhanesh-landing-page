@@ -48,9 +48,10 @@
   }
   .hero-banner{
     display:block;width:100%;padding:0;border:none;cursor:pointer;
-    background:none;line-height:0;
+    background:none;line-height:0;max-height:min(200px,26vh);overflow:hidden;
   }
-  .hero-banner img{width:100%;height:auto;display:block;transition:opacity .15s ease;}
+  .hero-banner.hidden{display:none;}
+  .hero-banner img{width:100%;height:auto;display:block;object-fit:cover;object-position:center top;transition:opacity .15s ease;}
   .hero-banner:hover img{opacity:0.94;}
   #amp-score-widget{
     background:#fff;
@@ -63,23 +64,23 @@
   #screen-intro{
     background:linear-gradient(160deg,var(--navy-dark) 0%,var(--navy) 55%,var(--navy-light) 100%);
     color:#fff;
-    padding:52px 44px 44px;
+    padding:32px 40px 28px;
     text-align:left;
   }
   .kicker{
     display:inline-flex;align-items:center;gap:8px;
     color:var(--gold-light);letter-spacing:2px;font-size:11px;font-weight:700;
     text-transform:uppercase;border-left:3px solid var(--gold-light);padding-left:10px;
-    margin-bottom:28px;
+    margin-bottom:16px;
   }
   #screen-intro h1{
-    font-size:clamp(28px,5vw,40px);line-height:1.15;margin:0 0 14px 0;font-weight:800;
+    font-size:clamp(24px,4.2vw,34px);line-height:1.12;margin:0 0 10px 0;font-weight:800;
   }
-  #screen-intro .sub{color:var(--gold-light);font-size:16px;font-style:italic;margin-bottom:20px;font-weight:500;}
-  #screen-intro p{font-size:15px;line-height:1.6;color:#dfe4ee;max-width:520px;margin:0 0 28px 0;}
+  #screen-intro .sub{color:var(--gold-light);font-size:15px;font-style:italic;margin-bottom:14px;font-weight:500;}
+  #screen-intro p{font-size:14px;line-height:1.5;color:#dfe4ee;max-width:520px;margin:0 0 18px 0;}
   .meta-row{
-    display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:#b9c2d6;
-    border-top:1px solid rgba(255,255,255,0.15);padding-top:16px;margin-bottom:28px;
+    display:flex;gap:18px;flex-wrap:wrap;font-size:12px;color:#b9c2d6;
+    border-top:1px solid rgba(255,255,255,0.15);padding-top:12px;margin-bottom:18px;
   }
   .meta-row span{display:flex;align-items:center;gap:6px;}
   .btn{
@@ -94,18 +95,18 @@
   .btn-dark:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(27,42,74,0.3);}
 
   /* ---------- QUIZ ---------- */
-  #screen-quiz{padding:40px 44px 36px;}
-  .progress-wrap{margin-bottom:28px;}
+  #screen-quiz{padding:28px 40px 24px;}
+  .progress-wrap{margin-bottom:18px;}
   .progress-top{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:600;letter-spacing:.3px;}
   .progress-top .group-label{color:var(--gold);text-transform:uppercase;letter-spacing:1px;}
   .progress-bar{height:6px;background:var(--line);border-radius:4px;overflow:hidden;}
   .progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:4px;transition:width .35s ease;}
-  .q-text{font-size:clamp(19px,3vw,23px);font-weight:700;line-height:1.4;color:var(--navy);margin:8px 0 32px 0;min-height:90px;}
-  .scale{display:flex;flex-direction:column;gap:10px;}
+  .q-text{font-size:clamp(17px,2.6vw,21px);font-weight:700;line-height:1.35;color:var(--navy);margin:6px 0 18px 0;min-height:auto;}
+  .scale{display:flex;flex-direction:column;gap:8px;}
   .scale-btn{
     display:flex;align-items:center;justify-content:space-between;
-    padding:14px 18px;border:1.5px solid var(--line);border-radius:12px;
-    background:#fff;cursor:pointer;font-size:14.5px;font-weight:600;color:var(--ink);
+    padding:11px 16px;border:1.5px solid var(--line);border-radius:12px;
+    background:#fff;cursor:pointer;font-size:14px;font-weight:600;color:var(--ink);
     transition:all .15s ease;text-align:left;
   }
   .scale-btn .dot{
@@ -116,7 +117,7 @@
   .scale-btn:hover{border-color:var(--gold);background:#fffdf5;}
   .scale-btn.selected{border-color:var(--gold);background:#fdf7e6;}
   .scale-btn.selected .dot{border-color:var(--gold);background:var(--gold);box-shadow:inset 0 0 0 3px #fff;}
-  .quiz-footer{display:flex;justify-content:space-between;align-items:center;margin-top:32px;}
+  .quiz-footer{display:flex;justify-content:space-between;align-items:center;margin-top:18px;}
   .link-btn{background:none;border:none;color:var(--muted);font-weight:600;font-size:14px;cursor:pointer;font-family:inherit;padding:6px 0;}
   .link-btn:hover{color:var(--navy);}
   .link-btn:disabled{opacity:0.35;cursor:default;}
@@ -125,7 +126,7 @@
   /* ---------- CAPTURE ---------- */
   #screen-capture{
     background:linear-gradient(160deg,var(--navy-dark) 0%,var(--navy) 55%,var(--navy-light) 100%);
-    color:#fff; padding:52px 44px 44px;
+    color:#fff; padding:32px 40px 28px;
   }
   .capture-inner{max-width:460px;}
   .capture-title{font-size:26px; font-weight:800; margin:14px 0 10px 0;}
@@ -444,15 +445,6 @@
 
   function $(id){ return document.getElementById(id); }
 
-  function scrollToWidget(){
-    var el = $('amp-score-widget');
-    if (el && el.scrollIntoView){
-      el.scrollIntoView({behavior:'smooth', block:'start'});
-    } else {
-      window.scrollTo({top:0, behavior:'smooth'});
-    }
-  }
-
   function showScreen(id){
     document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
     $(id).classList.add('active');
@@ -484,7 +476,6 @@
     if (current < STATEMENTS.length - 1) {
       current++;
       renderQuestion();
-      scrollToWidget();
     } else {
       showCapture();
     }
@@ -500,7 +491,6 @@
   function showCapture(){
     $('cap-error').style.display = 'none';
     showScreen('screen-capture');
-    scrollToWidget();
     setTimeout(function(){ $('cap-name').focus(); }, 50);
   }
 
@@ -613,7 +603,6 @@
     $('share-x').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText) + '&url=' + encodeURIComponent(pageUrl);
 
     showScreen('screen-result');
-    scrollToWidget();
   }
 
   function wrapText(ctx, text, x, y, maxWidth, lineHeight){
@@ -911,6 +900,8 @@
     $('cap-whatsapp').value = '';
     $('cap-error').style.display = 'none';
     setFormat('square');
+    var hero = document.querySelector('.hero-banner');
+    if (hero) hero.classList.add('hidden');
     showScreen('screen-quiz');
     renderQuestion();
   }
