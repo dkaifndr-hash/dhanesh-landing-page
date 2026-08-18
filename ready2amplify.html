@@ -114,6 +114,25 @@
   .link-btn:disabled{opacity:0.35;cursor:default;}
   .link-btn:disabled:hover{color:var(--muted);}
 
+  /* ---------- CAPTURE ---------- */
+  #screen-capture{
+    background:linear-gradient(160deg,var(--navy-dark) 0%,var(--navy) 55%,var(--navy-light) 100%);
+    color:#fff; padding:52px 44px 44px;
+  }
+  .capture-inner{max-width:460px;}
+  .capture-title{font-size:26px; font-weight:800; margin:14px 0 10px 0;}
+  .capture-sub{font-size:14px; line-height:1.6; color:#dfe4ee; margin:0 0 26px 0; max-width:480px;}
+  .field-label{display:block; font-size:12.5px; font-weight:700; color:#dfe4ee; margin:16px 0 6px 0;}
+  .field-label span{font-weight:500; color:#9aa5bd;}
+  .field-input{
+    width:100%; padding:12px 14px; border-radius:10px; border:1.5px solid rgba(255,255,255,0.25);
+    background:rgba(255,255,255,0.08); color:#fff; font-size:15px; font-family:inherit;
+  }
+  .field-input::placeholder{color:#8b96b3;}
+  .field-input:focus{outline:none; border-color:var(--gold-light); background:rgba(255,255,255,0.12);}
+  .field-error{color:#ff9b9b; font-size:13px; margin-top:10px;}
+  .capture-privacy{font-size:11.5px; color:#9aa5bd; margin-top:16px; text-align:center;}
+
   /* ---------- RESULT ---------- */
   #screen-result{padding:0;}
   .result-hero{
@@ -127,7 +146,13 @@
     padding:6px;margin-bottom:18px;overflow:hidden;
   }
   .result-icon-badge svg{width:100%;height:100%;display:block;}
-  .share-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:0 44px 40px;margin-top:-16px;}
+  .name-line{font-size:15px;color:#dfe4ee;margin-bottom:2px;}
+  .name-line b{color:#fff;font-weight:800;font-size:17px;}
+  .format-tabs{display:flex;gap:18px;padding:0 44px;margin-top:-4px;margin-bottom:14px;border-bottom:1px solid var(--line);}
+  .format-tab{background:none;border:none;font-family:inherit;font-size:13px;font-weight:700;color:var(--muted);padding:0 0 10px 0;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;}
+  .format-tab.active{color:var(--navy);border-color:var(--gold);}
+  .format-tab:hover{color:var(--navy);}
+  .share-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:0 44px 40px;margin-top:-4px;}
   .share-row .share-label{font-size:12px;color:var(--muted);font-weight:600;}
   .share-link{
     display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;
@@ -219,11 +244,30 @@
     </div>
   </section>
 
+  <!-- CAPTURE -->
+  <section id="screen-capture" class="screen">
+    <div class="capture-inner">
+      <div class="kicker" style="color:var(--gold-light);border-color:var(--gold-light);">Your result is ready</div>
+      <h2 class="capture-title">Where should I send a copy?</h2>
+      <p class="capture-sub">You'll see your full result on the next screen. Email and WhatsApp are optional — I'll only use them to send you a copy.</p>
+      <label class="field-label" for="cap-name">First name</label>
+      <input type="text" id="cap-name" class="field-input" placeholder="Your first name" autocomplete="given-name">
+      <label class="field-label" for="cap-email">Email <span>(optional)</span></label>
+      <input type="email" id="cap-email" class="field-input" placeholder="you@company.com" autocomplete="email">
+      <label class="field-label" for="cap-whatsapp">WhatsApp number <span>(optional)</span></label>
+      <input type="tel" id="cap-whatsapp" class="field-input" placeholder="+1 555 555 5555" autocomplete="tel">
+      <div id="cap-error" class="field-error" style="display:none;">Enter your first name to continue.</div>
+      <button class="btn btn-primary" style="width:100%;margin-top:10px;" onclick="ampScore.submitCapture()">Show my result →</button>
+      <div class="capture-privacy">No spam. Unsubscribe from anything I send in one click.</div>
+    </div>
+  </section>
+
   <!-- RESULT -->
   <section id="screen-result" class="screen">
     <div class="result-hero">
       <div class="result-icon-badge" id="res-icon"></div>
       <div class="range-label" id="res-range">SCORE 21–40</div>
+      <div class="name-line" id="res-nameline"></div>
       <h2 id="res-name">The Ceremony Performer</h2>
       <div class="tagline" id="res-tag">"We do all the ceremonies. Why doesn't it feel like it's working?"</div>
       <div class="score-num">Your score: <b id="res-score">0</b> / 105</div>
@@ -242,8 +286,14 @@
       <a class="btn btn-primary" href="https://calendly.com/coachdhaneshk" target="_top">Book a call with Dhanesh →</a>
       <button class="btn btn-ghost" style="color:var(--navy);border-color:var(--navy)" onclick="ampScore.restart()">Retake</button>
     </div>
+    <div class="format-tabs">
+      <button class="format-tab active" data-format="square" onclick="ampScore.setFormat('square')">Square</button>
+      <button class="format-tab" data-format="landscape" onclick="ampScore.setFormat('landscape')">Landscape</button>
+      <button class="format-tab" data-format="story" onclick="ampScore.setFormat('story')">Story</button>
+    </div>
     <div class="share-row">
       <button class="btn btn-ghost" style="color:var(--navy);border-color:var(--line)" id="download-btn" onclick="ampScore.downloadCard()">⬇ Download my result</button>
+      <button class="btn btn-ghost" style="color:var(--navy);border-color:var(--line)" id="copy-btn" onclick="ampScore.copyImage()">⧉ Copy image</button>
       <span class="share-label">Share:</span>
       <a class="share-link" id="share-linkedin" href="#" target="_blank" rel="noopener" aria-label="Share on LinkedIn">in</a>
       <a class="share-link" id="share-x" href="#" target="_blank" rel="noopener" aria-label="Share on X">𝕏</a>
@@ -344,10 +394,22 @@
     return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="' + size + '" height="' + size + '">' + AVATARS[key] + '</svg>';
   }
 
+  var FORMSPREE_URL = 'https://formspree.io/f/xvkpvvye';
+
+  var FORMATS = {
+    square:    {w:1080, h:1080, label:'my-amplification-score'},
+    landscape: {w:1200, h:630,  label:'my-amplification-score-landscape'},
+    story:     {w:1080, h:1920, label:'my-amplification-score-story'}
+  };
+
   var answers = new Array(STATEMENTS.length).fill(null);
   var current = 0;
   var currentType = null;
   var currentScore = 0;
+  var currentFormat = 'square';
+  var capturedName = '';
+  var capturedEmail = '';
+  var capturedWhatsapp = '';
 
   function $(id){ return document.getElementById(id); }
 
@@ -384,7 +446,7 @@
       renderQuestion();
       window.scrollTo({top:0, behavior:'smooth'});
     } else {
-      showResult();
+      showCapture();
     }
   }
 
@@ -393,6 +455,59 @@
       current--;
       renderQuestion();
     }
+  }
+
+  function showCapture(){
+    $('cap-error').style.display = 'none';
+    showScreen('screen-capture');
+    window.scrollTo({top:0, behavior:'smooth'});
+    setTimeout(function(){ $('cap-name').focus(); }, 50);
+  }
+
+  function submitCapture(){
+    var name = $('cap-name').value.trim();
+    var email = $('cap-email').value.trim();
+    var whatsapp = $('cap-whatsapp').value.trim();
+
+    if (!name){
+      $('cap-error').textContent = 'Enter your first name to continue.';
+      $('cap-error').style.display = 'block';
+      $('cap-name').focus();
+      return;
+    }
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      $('cap-error').textContent = 'That email doesn\'t look right — fix it or leave it blank.';
+      $('cap-error').style.display = 'block';
+      $('cap-email').focus();
+      return;
+    }
+
+    $('cap-error').style.display = 'none';
+    capturedName = name;
+    capturedEmail = email;
+    capturedWhatsapp = whatsapp;
+
+    submitLeadToFormspree(name, email, whatsapp);
+    showResult();
+  }
+
+  function submitLeadToFormspree(name, email, whatsapp){
+    try {
+      var score = computeScore();
+      var type = typeForScore(score);
+      fetch(FORMSPREE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name: name,
+          email: email || '(not provided)',
+          whatsapp: whatsapp || '(not provided)',
+          score: score,
+          type: type.name,
+          page: 'ready2amplify'
+        })
+      }).catch(function(){ /* silent — never blocks the result reveal */ });
+    } catch(e) { /* fetch unsupported or blocked — never blocks the result reveal */ }
   }
 
   function computeScore(){
@@ -414,6 +529,19 @@
 
     $('res-icon').innerHTML = avatarSvg(type.key, 96);
     $('res-range').textContent = 'SCORE ' + type.min + '–' + type.max;
+
+    var nameLine = $('res-nameline');
+    nameLine.innerHTML = '';
+    if (capturedName){
+      var b = document.createElement('b');
+      b.textContent = capturedName;
+      nameLine.appendChild(b);
+      nameLine.appendChild(document.createTextNode(' is'));
+      nameLine.style.display = 'block';
+    } else {
+      nameLine.style.display = 'none';
+    }
+
     $('res-name').textContent = type.name;
     $('res-tag').textContent = type.tag;
     $('res-score').textContent = score;
@@ -434,7 +562,7 @@
       grid.appendChild(card);
     });
 
-    var shareText = 'I scored "' + type.name + '" (' + score + '/105) on The Amplification Score. Curious what kind of AI-ready organization you are?';
+    var shareText = (capturedName ? capturedName + ' scored' : 'I scored') + ' "' + type.name + '" (' + score + '/105) on The Amplification Score. Curious what kind of AI-ready organization you are?';
     var pageUrl = 'https://pragility.ca/ready2amplify.html';
     $('share-linkedin').href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(pageUrl);
     $('share-x').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText) + '&url=' + encodeURIComponent(pageUrl);
@@ -461,109 +589,285 @@
     return lines.length;
   }
 
-  function downloadCard(){
-    if (!currentType) return;
-    var btn = $('download-btn');
-    var originalLabel = btn.textContent;
-    btn.textContent = 'Preparing…';
+  function setFormat(fmt){
+    if (!FORMATS[fmt]) return;
+    currentFormat = fmt;
+    document.querySelectorAll('.format-tab').forEach(function(b){
+      b.classList.toggle('active', b.dataset.format === fmt);
+    });
+  }
 
-    var canvas = $('card-canvas');
-    var ctx = canvas.getContext('2d');
-    var W = canvas.width, H = canvas.height;
-
+  function drawBackground(ctx, W, H){
     var grad = ctx.createLinearGradient(0, 0, W, H);
     grad.addColorStop(0, '#10192e');
     grad.addColorStop(0.55, '#1B2A4A');
     grad.addColorStop(1, '#24365f');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, W, H);
+  }
 
-    ctx.strokeStyle = 'rgba(240,200,64,0.16)';
-    ctx.lineWidth = 3;
-    ctx.beginPath(); ctx.arc(W - 120, 120, 300, 0, Math.PI*2); ctx.stroke();
-    ctx.strokeStyle = 'rgba(240,200,64,0.10)';
-    ctx.beginPath(); ctx.arc(W - 60, H - 60, 220, 0, Math.PI*2); ctx.stroke();
+  function drawAvatarCircle(ctx, img, cx, cy, r){
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(240,200,64,0.14)';
+    ctx.fill();
+    ctx.lineWidth = Math.max(3, r*0.03);
+    ctx.strokeStyle = '#F0C840';
+    ctx.stroke();
+    if (img){
+      ctx.clip();
+      var pad = r*0.12;
+      ctx.drawImage(img, cx-r+pad, cy-r+pad, (r-pad)*2, (r-pad)*2);
+    }
+    ctx.restore();
+  }
 
+  function drawGaugeBar(ctx, barX, barY, barW, barH){
+    var segs = [0.19, 0.19, 0.19, 0.43];
+    var cols = ['#8a5a5a', '#b98a3f', '#7a9a5f', '#F0C840'];
+    var sx = barX;
+    segs.forEach(function(w, i){
+      ctx.fillStyle = cols[i];
+      var sw = barW * w;
+      ctx.fillRect(sx, barY, sw, barH);
+      sx += sw;
+    });
+    var pct = Math.max(0, Math.min(1, (currentScore-21)/(105-21)));
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(barX + barW*pct - 2, barY-6, 4, barH+12);
+  }
+
+  function drawFooter(ctx, cx, y1, y2, smallFont, bigFont){
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#dfe4ee';
+    ctx.font = '600 ' + smallFont + 'px Inter, sans-serif';
+    ctx.fillText('Find your score at', cx, y1);
     ctx.fillStyle = '#F0C840';
-    ctx.font = '700 22px Inter, sans-serif';
+    ctx.font = '700 ' + bigFont + 'px Inter, sans-serif';
+    ctx.fillText('pragility.ca/ready2amplify', cx, y2);
+  }
+
+  function namePrefix(){
+    return capturedName ? capturedName + ' is' : '';
+  }
+
+  function drawSquareCard(ctx, img, W, H){
+    drawBackground(ctx, W, H);
+    ctx.strokeStyle = 'rgba(240,200,64,0.16)'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.arc(W-120,120,300,0,Math.PI*2); ctx.stroke();
+    ctx.strokeStyle = 'rgba(240,200,64,0.10)';
+    ctx.beginPath(); ctx.arc(W-60,H-60,220,0,Math.PI*2); ctx.stroke();
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#F0C840'; ctx.font = '700 22px Inter, sans-serif';
     ctx.fillText('PRAGILITY  ·  THE AMPLIFICATION SCORE', 72, 90);
+
+    var cx = W/2, cy = 330, r = 150;
+    drawAvatarCircle(ctx, img, cx, cy, r);
+
+    var y = 505;
+    ctx.textAlign = 'center';
+    var prefix = namePrefix();
+    if (prefix){
+      ctx.fillStyle = '#dfe4ee'; ctx.font = '600 24px Inter, sans-serif';
+      ctx.fillText(prefix, cx, y);
+      y += 38;
+    }
+    ctx.fillStyle = '#F0C840'; ctx.font = '700 24px Inter, sans-serif';
+    ctx.fillText('SCORE ' + currentType.min + '–' + currentType.max, cx, y);
+    y += 62;
+
+    ctx.fillStyle = '#ffffff'; ctx.font = '800 54px Inter, sans-serif';
+    ctx.fillText(currentType.name, cx, y);
+    y += 56;
+
+    ctx.fillStyle = '#e7ecf6'; ctx.font = 'italic 500 27px Inter, sans-serif'; ctx.textAlign = 'left';
+    var lineCount = wrapText(ctx, currentType.tag.replace(/[“”]/g,'"'), 130, y, W-260, 36);
+    y += lineCount*36 + 34;
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#b9c2d6'; ctx.font = '500 25px Inter, sans-serif';
+    ctx.fillText('My score: ' + currentScore + ' / 105', cx, y);
+    y += 36;
+
+    drawGaugeBar(ctx, 190, y, W-380, 16);
+
+    drawFooter(ctx, cx, H-140, H-100, 24, 30);
+  }
+
+  function drawLandscapeCard(ctx, img, W, H){
+    drawBackground(ctx, W, H);
+    ctx.strokeStyle = 'rgba(240,200,64,0.14)'; ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.arc(W-80,-40,260,0,Math.PI*2); ctx.stroke();
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#F0C840'; ctx.font = '700 17px Inter, sans-serif';
+    ctx.fillText('PRAGILITY  ·  THE AMPLIFICATION SCORE', 60, 54);
+
+    var cx = 260, cy = 340, r = 165;
+    drawAvatarCircle(ctx, img, cx, cy, r);
+
+    var tx = 500, tw = W - 500 - 60;
+    var y = 145;
+    ctx.textAlign = 'left';
+    var prefix = namePrefix();
+    if (prefix){
+      ctx.fillStyle = '#dfe4ee'; ctx.font = '600 20px Inter, sans-serif';
+      ctx.fillText(prefix, tx, y);
+      y += 32;
+    }
+    ctx.fillStyle = '#F0C840'; ctx.font = '700 19px Inter, sans-serif';
+    ctx.fillText('SCORE ' + currentType.min + '–' + currentType.max, tx, y);
+    y += 48;
+
+    ctx.fillStyle = '#ffffff'; ctx.font = '800 42px Inter, sans-serif';
+    var lc1 = wrapText(ctx, currentType.name, tx, y, tw, 48);
+    y += lc1*48 + 14;
+
+    ctx.fillStyle = '#e7ecf6'; ctx.font = 'italic 500 20px Inter, sans-serif';
+    var lc2 = wrapText(ctx, currentType.tag.replace(/[“”]/g,'"'), tx, y, tw, 27);
+    y += lc2*27 + 28;
+
+    ctx.fillStyle = '#b9c2d6'; ctx.font = '500 20px Inter, sans-serif';
+    ctx.fillText('Score: ' + currentScore + ' / 105', tx, y);
+    y += 30;
+
+    drawGaugeBar(ctx, tx, y, tw, 12);
+    y += 12 + 34;
+
+    ctx.fillStyle = '#dfe4ee'; ctx.font = '600 16px Inter, sans-serif';
+    ctx.fillText('Find your score at', tx, y);
+    ctx.fillStyle = '#F0C840'; ctx.font = '700 18px Inter, sans-serif';
+    ctx.fillText('pragility.ca/ready2amplify', tx, y+24);
+  }
+
+  function drawStoryCard(ctx, img, W, H){
+    drawBackground(ctx, W, H);
+    ctx.strokeStyle = 'rgba(240,200,64,0.14)'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.arc(W-140,260,320,0,Math.PI*2); ctx.stroke();
+    ctx.strokeStyle = 'rgba(240,200,64,0.10)';
+    ctx.beginPath(); ctx.arc(W-100,H-260,260,0,Math.PI*2); ctx.stroke();
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#F0C840'; ctx.font = '700 26px Inter, sans-serif';
+    ctx.fillText('PRAGILITY  ·  THE AMPLIFICATION SCORE', 90, 180);
+
+    var cx = W/2, cy = 560, r = 220;
+    drawAvatarCircle(ctx, img, cx, cy, r);
+
+    var y = 850;
+    ctx.textAlign = 'center';
+    var prefix = namePrefix();
+    if (prefix){
+      ctx.fillStyle = '#dfe4ee'; ctx.font = '600 32px Inter, sans-serif';
+      ctx.fillText(prefix, cx, y);
+      y += 52;
+    }
+    ctx.fillStyle = '#F0C840'; ctx.font = '700 32px Inter, sans-serif';
+    ctx.fillText('SCORE ' + currentType.min + '–' + currentType.max, cx, y);
+    y += 86;
+
+    ctx.fillStyle = '#ffffff'; ctx.font = '800 74px Inter, sans-serif';
+    ctx.fillText(currentType.name, cx, y);
+    y += 78;
+
+    ctx.fillStyle = '#e7ecf6'; ctx.font = 'italic 500 36px Inter, sans-serif'; ctx.textAlign = 'left';
+    var lineCount = wrapText(ctx, currentType.tag.replace(/[“”]/g,'"'), 170, y, W-340, 48);
+    y += lineCount*48 + 46;
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#b9c2d6'; ctx.font = '500 34px Inter, sans-serif';
+    ctx.fillText('My score: ' + currentScore + ' / 105', cx, y);
+    y += 48;
+
+    drawGaugeBar(ctx, 260, y, W-520, 20);
+
+    drawFooter(ctx, cx, H-260, H-210, 30, 38);
+  }
+
+  function generateCardCanvas(callback){
+    if (!currentType) return;
+    var fmt = FORMATS[currentFormat];
+    var canvas = $('card-canvas');
+    canvas.width = fmt.w;
+    canvas.height = fmt.h;
+    var ctx = canvas.getContext('2d');
 
     var img = new Image();
     var svgStr = avatarSvg(currentType.key, 300);
     var svgBlob = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgStr)));
-    img.onload = function(){
-      var cx = W/2, cy = 330, r = 150;
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(cx, cy, r, 0, Math.PI*2);
-      ctx.fillStyle = 'rgba(240,200,64,0.14)';
-      ctx.fill();
-      ctx.lineWidth = 5;
-      ctx.strokeStyle = '#F0C840';
-      ctx.stroke();
-      ctx.clip();
-      ctx.drawImage(img, cx-r+18, cy-r+18, (r-18)*2, (r-18)*2);
-      ctx.restore();
 
-      ctx.textAlign = 'center';
-      ctx.fillStyle = '#F0C840';
-      ctx.font = '700 24px Inter, sans-serif';
-      ctx.fillText('SCORE ' + currentType.min + '–' + currentType.max, cx, 545);
+    function draw(loadedImg){
+      if (currentFormat === 'landscape') drawLandscapeCard(ctx, loadedImg, fmt.w, fmt.h);
+      else if (currentFormat === 'story') drawStoryCard(ctx, loadedImg, fmt.w, fmt.h);
+      else drawSquareCard(ctx, loadedImg, fmt.w, fmt.h);
+      callback(canvas);
+    }
 
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '800 58px Inter, sans-serif';
-      ctx.fillText(currentType.name, cx, 615);
+    img.onload = function(){ draw(img); };
+    img.onerror = function(){ draw(null); };
+    img.src = svgBlob;
+  }
 
-      ctx.fillStyle = '#e7ecf6';
-      ctx.font = 'italic 500 28px Inter, sans-serif';
-      ctx.textAlign = 'left';
-      wrapText(ctx, currentType.tag.replace(/[“”]/g,'"'), 130, 675, W-260, 38);
-
-      ctx.textAlign = 'center';
-      ctx.fillStyle = '#b9c2d6';
-      ctx.font = '500 26px Inter, sans-serif';
-      ctx.fillText('My score: ' + currentScore + ' / 105', cx, 790);
-
-      var barX = 190, barY = 830, barW = W - 380, barH = 16;
-      var segs = [0.19, 0.19, 0.19, 0.43];
-      var cols = ['#8a5a5a', '#b98a3f', '#7a9a5f', '#F0C840'];
-      var sx = barX;
-      segs.forEach(function(w, i){
-        ctx.fillStyle = cols[i];
-        var sw = barW * w;
-        ctx.fillRect(sx, barY, sw, barH);
-        sx += sw;
-      });
-      var pct = Math.max(0, Math.min(1, (currentScore-21)/(105-21)));
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(barX + barW*pct - 2, barY-6, 4, barH+12);
-
-      ctx.fillStyle = '#dfe4ee';
-      ctx.font = '600 26px Inter, sans-serif';
-      ctx.fillText('Find your score at', cx, 940);
-      ctx.fillStyle = '#F0C840';
-      ctx.font = '700 32px Inter, sans-serif';
-      ctx.fillText('pragility.ca/ready2amplify', cx, 980);
-
+  function downloadCard(){
+    if (!currentType) return;
+    var btn = $('download-btn');
+    var originalLabel = btn.textContent;
+    btn.textContent = 'Preparing…';
+    generateCardCanvas(function(canvas){
       var link = document.createElement('a');
-      link.download = 'my-amplification-score-' + currentType.key + '.png';
+      link.download = FORMATS[currentFormat].label + '-' + currentType.key + '.png';
       link.href = canvas.toDataURL('image/png');
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      btn.textContent = originalLabel;
+    });
+  }
 
-      btn.textContent = originalLabel;
-    };
-    img.onerror = function(){
-      btn.textContent = originalLabel;
-      alert('Could not generate the image. Please try again.');
-    };
-    img.src = svgBlob;
+  function copyImage(){
+    if (!currentType) return;
+    var btn = $('copy-btn');
+    var originalLabel = btn.textContent;
+
+    if (!navigator.clipboard || typeof ClipboardItem === 'undefined'){
+      btn.textContent = 'Downloading instead…';
+      downloadCard();
+      setTimeout(function(){ btn.textContent = originalLabel; }, 1400);
+      return;
+    }
+
+    btn.textContent = 'Copying…';
+    generateCardCanvas(function(canvas){
+      canvas.toBlob(function(blob){
+        if (!blob){
+          btn.textContent = originalLabel;
+          return;
+        }
+        navigator.clipboard.write([ new ClipboardItem({ 'image/png': blob }) ]).then(function(){
+          btn.textContent = '✓ Copied';
+          setTimeout(function(){ btn.textContent = originalLabel; }, 1600);
+        }).catch(function(){
+          btn.textContent = 'Downloading instead…';
+          downloadCard();
+          setTimeout(function(){ btn.textContent = originalLabel; }, 1400);
+        });
+      }, 'image/png');
+    });
   }
 
   function start(){
     current = 0;
     answers = new Array(STATEMENTS.length).fill(null);
+    capturedName = '';
+    capturedEmail = '';
+    capturedWhatsapp = '';
+    $('cap-name').value = '';
+    $('cap-email').value = '';
+    $('cap-whatsapp').value = '';
+    $('cap-error').style.display = 'none';
+    setFormat('square');
     showScreen('screen-quiz');
     renderQuestion();
   }
@@ -572,7 +876,11 @@
     start();
   }
 
-  window.ampScore = { start: start, back: back, restart: restart, downloadCard: downloadCard };
+  window.ampScore = {
+    start: start, back: back, restart: restart,
+    submitCapture: submitCapture,
+    downloadCard: downloadCard, copyImage: copyImage, setFormat: setFormat
+  };
 
 })();
 </script>
