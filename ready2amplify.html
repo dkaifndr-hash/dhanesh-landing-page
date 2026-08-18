@@ -495,17 +495,22 @@
     try {
       var score = computeScore();
       var type = typeForScore(score);
+      var payload = {
+        name: name,
+        whatsapp: whatsapp || '(not provided)',
+        score: score,
+        type: type.name,
+        page: 'ready2amplify'
+      };
+      // Formspree specially validates any field literally named "email" as an
+      // email address — only include it when it's actually a real address,
+      // otherwise the whole submission gets rejected with a 422.
+      if (email) { payload.email = email; }
+
       fetch(FORMSPREE_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          name: name,
-          email: email || '(not provided)',
-          whatsapp: whatsapp || '(not provided)',
-          score: score,
-          type: type.name,
-          page: 'ready2amplify'
-        })
+        body: JSON.stringify(payload)
       }).catch(function(){ /* silent — never blocks the result reveal */ });
     } catch(e) { /* fetch unsupported or blocked — never blocks the result reveal */ }
   }
