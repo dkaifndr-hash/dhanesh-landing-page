@@ -121,12 +121,20 @@
     color:#fff;padding:40px 44px 32px;
   }
   .result-icon-badge{
-    width:64px;height:64px;border-radius:50%;
+    width:96px;height:96px;border-radius:50%;
     background:rgba(240,200,64,0.14);border:1.5px solid var(--gold-light);
     color:var(--gold-light);display:flex;align-items:center;justify-content:center;
-    padding:15px;margin-bottom:18px;
+    padding:6px;margin-bottom:18px;overflow:hidden;
   }
   .result-icon-badge svg{width:100%;height:100%;display:block;}
+  .share-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:0 44px 40px;margin-top:-16px;}
+  .share-row .share-label{font-size:12px;color:var(--muted);font-weight:600;}
+  .share-link{
+    display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;
+    border-radius:50%;border:1.5px solid var(--line);color:var(--muted);text-decoration:none;
+    font-size:13px;font-weight:700;transition:all .15s ease;
+  }
+  .share-link:hover{border-color:var(--gold);color:var(--navy);background:#fdf7e6;}
   .result-hero .range-label{color:var(--gold-light);font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:10px;}
   .result-hero h2{font-size:clamp(26px,4.5vw,34px);margin:0 0 8px 0;font-weight:800;}
   .result-hero .tagline{font-style:italic;color:#e7ecf6;font-size:15px;margin:0 0 20px 0;}
@@ -234,6 +242,13 @@
       <a class="btn btn-primary" href="https://calendly.com/coachdhaneshk" target="_top">Book a call with Dhanesh →</a>
       <button class="btn btn-ghost" style="color:var(--navy);border-color:var(--navy)" onclick="ampScore.restart()">Retake</button>
     </div>
+    <div class="share-row">
+      <button class="btn btn-ghost" style="color:var(--navy);border-color:var(--line)" id="download-btn" onclick="ampScore.downloadCard()">⬇ Download my result</button>
+      <span class="share-label">Share:</span>
+      <a class="share-link" id="share-linkedin" href="#" target="_blank" rel="noopener" aria-label="Share on LinkedIn">in</a>
+      <a class="share-link" id="share-x" href="#" target="_blank" rel="noopener" aria-label="Share on X">𝕏</a>
+    </div>
+    <canvas id="card-canvas" width="1080" height="1080" style="display:none;"></canvas>
     <div class="types-mini">
       <div class="mini-title">The four types</div>
       <div class="mini-grid" id="mini-grid"></div>
@@ -318,8 +333,21 @@
     amplifier: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="3,10 9,10 15,5 15,19 9,14 3,14"></polygon><path d="M18 9c1.4 1.2 1.4 4.8 0 6"></path><path d="M20.7 6.8c2.2 2.4 2.2 8 0 10.4"></path></svg>'
   };
 
+  var AVATARS = {
+    ceremony: '<circle cx="32" cy="34" r="26" fill="#eadfc2"/><path d="M9 30 C9 16 19 8 32 8 C45 8 55 16 55 30" fill="none" stroke="#b89a55" stroke-width="2"/><path d="M20 28 Q23 24 26 28" stroke="#4a3a20" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M38 28 Q41 24 44 28" stroke="#4a3a20" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M19 40 Q32 52 45 40" stroke="#8a3b3b" stroke-width="2.6" fill="none" stroke-linecap="round"/><circle cx="32" cy="14" r="3.4" fill="#C9A227"/><path d="M26 14 L20 11 M38 14 L44 11" stroke="#C9A227" stroke-width="2.2" stroke-linecap="round"/><path d="M25 58 L32 53 L39 58 L32 55 Z" fill="#8a3b3b"/>',
+    firefighter: '<path d="M32 4 C20 18 14 26 14 38 C14 50 22 58 32 58 C42 58 50 50 50 38 C50 30 46 24 42 20 C43 28 38 30 36 26 C34 30 30 30 30 24 C26 30 24 24 26 16 C22 20 18 22 18 22" fill="#e0703a"/><path d="M32 20 C26 30 24 38 24 42 C24 50 28 54 32 54 C36 54 40 50 40 42 C40 36 37 32 34 29 C34 33 31 34 30 31 C29 34 27 32 28 27" fill="#f5b23c"/><circle cx="26" cy="38" r="2.6" fill="#3a2313"/><circle cx="38" cy="38" r="2.6" fill="#3a2313"/><path d="M22 32 L28 34 M42 32 L36 34" stroke="#3a2313" stroke-width="1.8" stroke-linecap="round"/><ellipse cx="32" cy="46" rx="3" ry="3.6" fill="#3a2313"/><path d="M46 22 C48 25 48 29 46 32" stroke="#bcd9f0" stroke-width="2.4" fill="none" stroke-linecap="round"/><ellipse cx="47" cy="20" rx="2" ry="3" fill="#bcd9f0"/>',
+    builder: '<rect x="16" y="22" width="32" height="26" rx="6" fill="#3f5372"/><rect x="10" y="14" width="44" height="12" rx="5" fill="#C9A227"/><rect x="8" y="22" width="48" height="5" rx="2.5" fill="#8a6d1f"/><circle cx="26" cy="35" r="4.2" fill="#eaf1fb"/><circle cx="38" cy="35" r="4.2" fill="#eaf1fb"/><circle cx="26" cy="35" r="1.8" fill="#1B2A4A"/><circle cx="38" cy="35" r="1.8" fill="#1B2A4A"/><rect x="27" y="43" width="10" height="2.6" rx="1.3" fill="#eaf1fb"/><rect x="30" y="6" width="4" height="8" rx="2" fill="#3f5372"/><circle cx="32" cy="5" r="3" fill="#e0703a"/><rect x="12" y="50" width="12" height="8" rx="1.5" fill="#8a5a2f"/><rect x="40" y="50" width="12" height="8" rx="1.5" fill="#8a5a2f"/><rect x="26" y="50" width="12" height="8" rx="1.5" fill="#a5723c"/><path d="M46 46 L52 40 L54 42 L48 48 Z" fill="#6b7a8c"/><circle cx="53" cy="41" r="2.4" fill="#6b7a8c"/>',
+    amplifier: '<path d="M12 12 L19 17 L14 21 Z" fill="#F0C840"/><path d="M52 54 L45 49 L50 45 Z" fill="#F0C840"/><path d="M30 8 L34 16 L26 16 Z" fill="#F0C840"/><path d="M30 58 L34 50 L26 50 Z" fill="#F0C840"/><path d="M6 33 L14 30 L14 36 Z" fill="#F0C840"/><path d="M58 33 L50 36 L50 30 Z" fill="#F0C840"/><circle cx="32" cy="33" r="19" fill="#1B2A4A"/><polygon points="17,27 30,27 44,15 44,51 30,39 17,39" fill="#F0C840"/><path d="M48 20 C52 25 52 41 48 46" stroke="#eaf1fb" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M52 16 C58 23 58 43 52 50" stroke="#eaf1fb" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.6"/>'
+  };
+
+  function avatarSvg(key, size){
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="' + size + '" height="' + size + '">' + AVATARS[key] + '</svg>';
+  }
+
   var answers = new Array(STATEMENTS.length).fill(null);
   var current = 0;
+  var currentType = null;
+  var currentScore = 0;
 
   function $(id){ return document.getElementById(id); }
 
@@ -381,8 +409,10 @@
   function showResult(){
     var score = computeScore();
     var type = typeForScore(score);
+    currentType = type;
+    currentScore = score;
 
-    $('res-icon').innerHTML = ICONS[type.key];
+    $('res-icon').innerHTML = avatarSvg(type.key, 96);
     $('res-range').textContent = 'SCORE ' + type.min + '–' + type.max;
     $('res-name').textContent = type.name;
     $('res-tag').textContent = type.tag;
@@ -404,8 +434,131 @@
       grid.appendChild(card);
     });
 
+    var shareText = 'I scored "' + type.name + '" (' + score + '/105) on The Amplification Score. Curious what kind of AI-ready organization you are?';
+    var pageUrl = 'https://pragility.ca/ready2amplify.html';
+    $('share-linkedin').href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(pageUrl);
+    $('share-x').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText) + '&url=' + encodeURIComponent(pageUrl);
+
     showScreen('screen-result');
     window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function wrapText(ctx, text, x, y, maxWidth, lineHeight){
+    var words = text.split(' ');
+    var line = '';
+    var lines = [];
+    for (var i=0;i<words.length;i++){
+      var test = line + words[i] + ' ';
+      if (ctx.measureText(test).width > maxWidth && line !== ''){
+        lines.push(line.trim());
+        line = words[i] + ' ';
+      } else {
+        line = test;
+      }
+    }
+    lines.push(line.trim());
+    lines.forEach(function(l, idx){ ctx.fillText(l, x, y + idx*lineHeight); });
+    return lines.length;
+  }
+
+  function downloadCard(){
+    if (!currentType) return;
+    var btn = $('download-btn');
+    var originalLabel = btn.textContent;
+    btn.textContent = 'Preparing…';
+
+    var canvas = $('card-canvas');
+    var ctx = canvas.getContext('2d');
+    var W = canvas.width, H = canvas.height;
+
+    var grad = ctx.createLinearGradient(0, 0, W, H);
+    grad.addColorStop(0, '#10192e');
+    grad.addColorStop(0.55, '#1B2A4A');
+    grad.addColorStop(1, '#24365f');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.strokeStyle = 'rgba(240,200,64,0.16)';
+    ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.arc(W - 120, 120, 300, 0, Math.PI*2); ctx.stroke();
+    ctx.strokeStyle = 'rgba(240,200,64,0.10)';
+    ctx.beginPath(); ctx.arc(W - 60, H - 60, 220, 0, Math.PI*2); ctx.stroke();
+
+    ctx.fillStyle = '#F0C840';
+    ctx.font = '700 22px Inter, sans-serif';
+    ctx.fillText('PRAGILITY  ·  THE AMPLIFICATION SCORE', 72, 90);
+
+    var img = new Image();
+    var svgStr = avatarSvg(currentType.key, 300);
+    var svgBlob = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgStr)));
+    img.onload = function(){
+      var cx = W/2, cy = 330, r = 150;
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(240,200,64,0.14)';
+      ctx.fill();
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = '#F0C840';
+      ctx.stroke();
+      ctx.clip();
+      ctx.drawImage(img, cx-r+18, cy-r+18, (r-18)*2, (r-18)*2);
+      ctx.restore();
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#F0C840';
+      ctx.font = '700 24px Inter, sans-serif';
+      ctx.fillText('SCORE ' + currentType.min + '–' + currentType.max, cx, 545);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '800 58px Inter, sans-serif';
+      ctx.fillText(currentType.name, cx, 615);
+
+      ctx.fillStyle = '#e7ecf6';
+      ctx.font = 'italic 500 28px Inter, sans-serif';
+      ctx.textAlign = 'left';
+      wrapText(ctx, currentType.tag.replace(/[“”]/g,'"'), 130, 675, W-260, 38);
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#b9c2d6';
+      ctx.font = '500 26px Inter, sans-serif';
+      ctx.fillText('My score: ' + currentScore + ' / 105', cx, 790);
+
+      var barX = 190, barY = 830, barW = W - 380, barH = 16;
+      var segs = [0.19, 0.19, 0.19, 0.43];
+      var cols = ['#8a5a5a', '#b98a3f', '#7a9a5f', '#F0C840'];
+      var sx = barX;
+      segs.forEach(function(w, i){
+        ctx.fillStyle = cols[i];
+        var sw = barW * w;
+        ctx.fillRect(sx, barY, sw, barH);
+        sx += sw;
+      });
+      var pct = Math.max(0, Math.min(1, (currentScore-21)/(105-21)));
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(barX + barW*pct - 2, barY-6, 4, barH+12);
+
+      ctx.fillStyle = '#dfe4ee';
+      ctx.font = '600 26px Inter, sans-serif';
+      ctx.fillText('Find your score at', cx, 940);
+      ctx.fillStyle = '#F0C840';
+      ctx.font = '700 32px Inter, sans-serif';
+      ctx.fillText('pragility.ca/ready2amplify', cx, 980);
+
+      var link = document.createElement('a');
+      link.download = 'my-amplification-score-' + currentType.key + '.png';
+      link.href = canvas.toDataURL('image/png');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      btn.textContent = originalLabel;
+    };
+    img.onerror = function(){
+      btn.textContent = originalLabel;
+      alert('Could not generate the image. Please try again.');
+    };
+    img.src = svgBlob;
   }
 
   function start(){
@@ -419,7 +572,7 @@
     start();
   }
 
-  window.ampScore = { start: start, back: back, restart: restart };
+  window.ampScore = { start: start, back: back, restart: restart, downloadCard: downloadCard };
 
 })();
 </script>
