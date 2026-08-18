@@ -39,21 +39,21 @@
     color:var(--ink);
     -webkit-font-smoothing:antialiased;
   }
-  .hero-banner{
-    max-width:720px;
-    margin:0 auto 18px auto;
-    border-radius:16px;
-    overflow:hidden;
-    box-shadow:0 10px 40px rgba(27,42,74,0.12);
-  }
-  .hero-banner img{width:100%;height:auto;display:block;}
-  #amp-score-widget{
+  .page-card{
     max-width:720px;
     margin:0 auto;
-    background:#fff;
     border-radius:16px;
     box-shadow:0 10px 40px rgba(27,42,74,0.12);
     overflow:hidden;
+  }
+  .hero-banner{
+    display:block;width:100%;padding:0;border:none;cursor:pointer;
+    background:none;line-height:0;
+  }
+  .hero-banner img{width:100%;height:auto;display:block;transition:opacity .15s ease;}
+  .hero-banner:hover img{opacity:0.94;}
+  #amp-score-widget{
+    background:#fff;
     position:relative;
   }
   .screen{display:none;}
@@ -220,9 +220,11 @@
 </head>
 <body>
 
-<div class="hero-banner">
-  <img src="images/amplification-score-hero.jpg" alt="Find out which one you are — The Amplification Score, a free 21-question diagnostic for leaders who want clarity today and impact tomorrow.">
-</div>
+<div class="page-card">
+
+  <button class="hero-banner" type="button" onclick="ampScore.start()" aria-label="Start the Amplification Score quiz">
+    <img src="images/amplification-score-hero.jpg" alt="Find out which one you are — The Amplification Score, a free 21-question diagnostic for leaders who want clarity today and impact tomorrow.">
+  </button>
 
 <div id="amp-score-widget">
 
@@ -318,6 +320,8 @@
       <div class="mini-grid" id="mini-grid"></div>
     </div>
   </section>
+
+</div>
 
 </div>
 
@@ -440,6 +444,15 @@
 
   function $(id){ return document.getElementById(id); }
 
+  function scrollToWidget(){
+    var el = $('amp-score-widget');
+    if (el && el.scrollIntoView){
+      el.scrollIntoView({behavior:'smooth', block:'start'});
+    } else {
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+  }
+
   function showScreen(id){
     document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
     $(id).classList.add('active');
@@ -471,7 +484,7 @@
     if (current < STATEMENTS.length - 1) {
       current++;
       renderQuestion();
-      window.scrollTo({top:0, behavior:'smooth'});
+      scrollToWidget();
     } else {
       showCapture();
     }
@@ -487,7 +500,7 @@
   function showCapture(){
     $('cap-error').style.display = 'none';
     showScreen('screen-capture');
-    window.scrollTo({top:0, behavior:'smooth'});
+    scrollToWidget();
     setTimeout(function(){ $('cap-name').focus(); }, 50);
   }
 
@@ -600,7 +613,7 @@
     $('share-x').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText) + '&url=' + encodeURIComponent(pageUrl);
 
     showScreen('screen-result');
-    window.scrollTo({top:0, behavior:'smooth'});
+    scrollToWidget();
   }
 
   function wrapText(ctx, text, x, y, maxWidth, lineHeight){
