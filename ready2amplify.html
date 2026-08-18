@@ -49,6 +49,7 @@
   .hero-banner{
     display:block;width:100%;padding:0;border:none;cursor:pointer;
     background:none;line-height:0;overflow:hidden;
+    max-height:clamp(90px,32vh,220px); /* sane default until JS measures exact space */
   }
   .hero-banner.hidden{display:none;}
   .hero-banner img{width:100%;height:auto;display:block;object-fit:cover;object-position:center top;transition:opacity .15s ease;}
@@ -211,7 +212,7 @@
   .mini-card.current .mini-card-icon img{filter:none;}
 
   @media (max-width:600px){
-    #screen-intro,#screen-quiz{padding:32px 24px 28px;}
+    #screen-intro,#screen-quiz,#screen-capture{padding:24px 22px 22px;}
     .result-hero,.result-body{padding-left:24px;padding-right:24px;}
     .cta-row{padding-left:24px;padding-right:24px;}
     .types-mini{padding-left:24px;padding-right:24px;}
@@ -941,7 +942,16 @@
     heroImgEl.addEventListener('load', fitHeroBanner);
   }
   window.addEventListener('load', fitHeroBanner);
-  window.addEventListener('resize', fitHeroBanner);
+  window.addEventListener('orientationchange', function(){ setTimeout(fitHeroBanner, 200); });
+  if (document.fonts && document.fonts.ready){
+    document.fonts.ready.then(fitHeroBanner);
+  }
+
+  var resizeTimer = null;
+  window.addEventListener('resize', function(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(fitHeroBanner, 120);
+  });
 
 })();
 </script>
