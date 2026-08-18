@@ -48,7 +48,7 @@
   }
   .hero-banner{
     display:block;width:100%;padding:0;border:none;cursor:pointer;
-    background:none;line-height:0;max-height:min(200px,26vh);overflow:hidden;
+    background:none;line-height:0;overflow:hidden;
   }
   .hero-banner.hidden{display:none;}
   .hero-banner img{width:100%;height:auto;display:block;object-fit:cover;object-position:center top;transition:opacity .15s ease;}
@@ -889,6 +889,25 @@
     });
   }
 
+  function fitHeroBanner(){
+    var heroBtn = document.querySelector('.hero-banner');
+    var introSection = $('screen-intro');
+    if (!heroBtn || heroBtn.classList.contains('hidden') || !introSection) return;
+    var img = heroBtn.querySelector('img');
+    if (!img) return;
+
+    var cardWidth = heroBtn.offsetWidth || document.querySelector('.page-card').offsetWidth;
+    var naturalW = img.naturalWidth || 1600;
+    var naturalH = img.naturalHeight || 836;
+    var naturalHeroHeight = cardWidth * (naturalH / naturalW);
+
+    var introHeight = introSection.offsetHeight;
+    var available = window.innerHeight - introHeight - 16;
+
+    var finalHeight = Math.max(70, Math.min(naturalHeroHeight, available));
+    heroBtn.style.maxHeight = finalHeight + 'px';
+  }
+
   function start(){
     current = 0;
     answers = new Array(STATEMENTS.length).fill(null);
@@ -915,6 +934,14 @@
     submitCapture: submitCapture,
     downloadCard: downloadCard, copyImage: copyImage, setFormat: setFormat
   };
+
+  var heroImgEl = document.querySelector('.hero-banner img');
+  if (heroImgEl){
+    if (heroImgEl.complete) fitHeroBanner();
+    heroImgEl.addEventListener('load', fitHeroBanner);
+  }
+  window.addEventListener('load', fitHeroBanner);
+  window.addEventListener('resize', fitHeroBanner);
 
 })();
 </script>
