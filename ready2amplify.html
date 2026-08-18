@@ -145,7 +145,7 @@
     color:var(--gold-light);display:flex;align-items:center;justify-content:center;
     padding:6px;margin-bottom:18px;overflow:hidden;
   }
-  .result-icon-badge svg{width:100%;height:100%;display:block;}
+  .result-icon-badge svg,.result-icon-badge img{width:100%;height:100%;display:block;}
   .name-line{font-size:15px;color:#dfe4ee;margin-bottom:2px;}
   .name-line b{color:#fff;font-weight:800;font-size:17px;}
   .format-tabs{display:flex;gap:18px;padding:0 44px;margin-top:-4px;margin-bottom:14px;border-bottom:1px solid var(--line);}
@@ -195,9 +195,11 @@
   .mini-card{border:1.5px solid var(--line);border-radius:10px;padding:14px 10px 12px;text-align:center;font-size:11.5px;font-weight:700;color:var(--muted);}
   .mini-card.current{border-color:var(--gold);background:#fdf7e6;color:var(--navy);}
   .mini-card .r{display:block;font-size:9.5px;color:var(--muted);font-weight:600;margin-top:4px;}
-  .mini-card-icon{width:26px;height:26px;margin:0 auto 8px;color:#aeb4c2;}
-  .mini-card-icon svg{width:100%;height:100%;display:block;}
+  .mini-card-icon{width:30px;height:30px;margin:0 auto 8px;color:#aeb4c2;}
+  .mini-card-icon svg,.mini-card-icon img{width:100%;height:100%;display:block;border-radius:50%;}
+  .mini-card-icon img{filter:grayscale(1) opacity(0.5);transition:filter 0.15s;}
   .mini-card.current .mini-card-icon{color:var(--gold);}
+  .mini-card.current .mini-card-icon img{filter:none;}
 
   @media (max-width:600px){
     #screen-intro,#screen-quiz{padding:32px 24px 28px;}
@@ -394,6 +396,19 @@
     return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="' + size + '" height="' + size + '">' + AVATARS[key] + '</svg>';
   }
 
+  // Premium photoreal badge art (cropped from the LinkedIn/Instagram campaign
+  // assets) — used for the on-site avatars instead of the flat AVATARS SVGs above.
+  var AVATAR_IMAGES = {
+    ceremony: 'images/avatar-ceremony.png',
+    firefighter: 'images/avatar-firefighter.png',
+    builder: 'images/avatar-builder.png',
+    amplifier: 'images/avatar-amplifier.png'
+  };
+
+  function avatarImgTag(key, alt){
+    return '<img src="' + AVATAR_IMAGES[key] + '" alt="' + alt + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;">';
+  }
+
   var FORMSPREE_URL = 'https://formspree.io/f/xvkpvvye';
 
   var FORMATS = {
@@ -532,7 +547,7 @@
     currentType = type;
     currentScore = score;
 
-    $('res-icon').innerHTML = avatarSvg(type.key, 96);
+    $('res-icon').innerHTML = avatarImgTag(type.key, type.name + ' badge');
     $('res-range').textContent = 'SCORE ' + type.min + '–' + type.max;
 
     var nameLine = $('res-nameline');
@@ -563,7 +578,7 @@
     TYPES.forEach(function(t){
       var card = document.createElement('div');
       card.className = 'mini-card' + (t.key === type.key ? ' current' : '');
-      card.innerHTML = '<div class="mini-card-icon">' + ICONS[t.key] + '</div>' + t.name + '<span class="r">' + t.min + '–' + t.max + '</span>';
+      card.innerHTML = '<div class="mini-card-icon">' + avatarImgTag(t.key, t.name + ' badge') + '</div>' + t.name + '<span class="r">' + t.min + '–' + t.max + '</span>';
       grid.appendChild(card);
     });
 
@@ -800,8 +815,6 @@
     var ctx = canvas.getContext('2d');
 
     var img = new Image();
-    var svgStr = avatarSvg(currentType.key, 300);
-    var svgBlob = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgStr)));
 
     function draw(loadedImg){
       if (currentFormat === 'landscape') drawLandscapeCard(ctx, loadedImg, fmt.w, fmt.h);
@@ -812,7 +825,7 @@
 
     img.onload = function(){ draw(img); };
     img.onerror = function(){ draw(null); };
-    img.src = svgBlob;
+    img.src = AVATAR_IMAGES[currentType.key];
   }
 
   function downloadCard(){
