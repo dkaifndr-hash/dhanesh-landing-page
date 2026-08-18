@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Amplification Score | Pragility</title>
+<meta name="description" content="21 statements. 4 types. Find out whether your organization is ready to amplify with AI, or ready to expose what's underneath. A free companion diagnostic to Beyond Agile, Before AI.">
+<link rel="canonical" href="https://pragility.ca/ready2amplify.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pragility.ca/ready2amplify.html">
+<meta property="og:title" content="The Amplification Score — Is your organization ready to amplify?">
+<meta property="og:description" content="21 statements. 4 types. Only one is ready for AI to make it better instead of worse. Free, instant, no sign-up.">
+<meta property="og:image" content="https://pragility.ca/images/amplification-score-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Amplification Score — Is your organization ready to amplify?">
+<meta name="twitter:description" content="21 statements. 4 types. Only one is ready for AI to make it better instead of worse. Free, instant, no sign-up.">
+<meta name="twitter:image" content="https://pragility.ca/images/amplification-score-og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1B2A4A;
+    --navy-dark:#10192e;
+    --navy-light:#24365f;
+    --gold:#C9A227;
+    --gold-light:#F0C840;
+    --ink:#1a1a1a;
+    --muted:#5b6478;
+    --bg:#f7f8fb;
+    --line:#e4e7ee;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  #amp-score-widget{
+    max-width:720px;
+    margin:0 auto;
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 10px 40px rgba(27,42,74,0.12);
+    overflow:hidden;
+    position:relative;
+  }
+  .screen{display:none;}
+  .screen.active{display:block;}
+
+  /* ---------- INTRO ---------- */
+  #screen-intro{
+    background:linear-gradient(160deg,var(--navy-dark) 0%,var(--navy) 55%,var(--navy-light) 100%);
+    color:#fff;
+    padding:52px 44px 44px;
+    text-align:left;
+  }
+  .kicker{
+    display:inline-flex;align-items:center;gap:8px;
+    color:var(--gold-light);letter-spacing:2px;font-size:11px;font-weight:700;
+    text-transform:uppercase;border-left:3px solid var(--gold-light);padding-left:10px;
+    margin-bottom:28px;
+  }
+  #screen-intro h1{
+    font-size:clamp(28px,5vw,40px);line-height:1.15;margin:0 0 14px 0;font-weight:800;
+  }
+  #screen-intro .sub{color:var(--gold-light);font-size:16px;font-style:italic;margin-bottom:20px;font-weight:500;}
+  #screen-intro p{font-size:15px;line-height:1.6;color:#dfe4ee;max-width:520px;margin:0 0 28px 0;}
+  .meta-row{
+    display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:#b9c2d6;
+    border-top:1px solid rgba(255,255,255,0.15);padding-top:16px;margin-bottom:28px;
+  }
+  .meta-row span{display:flex;align-items:center;gap:6px;}
+  .btn{
+    appearance:none;border:none;cursor:pointer;font-family:inherit;font-weight:700;
+    font-size:15px;padding:14px 28px;border-radius:50px;transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary{background:var(--gold-light);color:var(--navy-dark);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(240,200,64,0.35);}
+  .btn-ghost{background:transparent;border:1.5px solid rgba(255,255,255,0.35);color:#fff;}
+  .btn-ghost:hover{background:rgba(255,255,255,0.08);}
+  .btn-dark{background:var(--navy);color:#fff;}
+  .btn-dark:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(27,42,74,0.3);}
+
+  /* ---------- QUIZ ---------- */
+  #screen-quiz{padding:40px 44px 36px;}
+  .progress-wrap{margin-bottom:28px;}
+  .progress-top{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:600;letter-spacing:.3px;}
+  .progress-top .group-label{color:var(--gold);text-transform:uppercase;letter-spacing:1px;}
+  .progress-bar{height:6px;background:var(--line);border-radius:4px;overflow:hidden;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:4px;transition:width .35s ease;}
+  .q-text{font-size:clamp(19px,3vw,23px);font-weight:700;line-height:1.4;color:var(--navy);margin:8px 0 32px 0;min-height:90px;}
+  .scale{display:flex;flex-direction:column;gap:10px;}
+  .scale-btn{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 18px;border:1.5px solid var(--line);border-radius:12px;
+    background:#fff;cursor:pointer;font-size:14.5px;font-weight:600;color:var(--ink);
+    transition:all .15s ease;text-align:left;
+  }
+  .scale-btn .dot{
+    width:20px;height:20px;border-radius:50%;border:2px solid #c7cde0;flex-shrink:0;margin-right:14px;
+    transition:all .15s ease;
+  }
+  .scale-btn-inner{display:flex;align-items:center;}
+  .scale-btn:hover{border-color:var(--gold);background:#fffdf5;}
+  .scale-btn.selected{border-color:var(--gold);background:#fdf7e6;}
+  .scale-btn.selected .dot{border-color:var(--gold);background:var(--gold);box-shadow:inset 0 0 0 3px #fff;}
+  .quiz-footer{display:flex;justify-content:space-between;align-items:center;margin-top:32px;}
+  .link-btn{background:none;border:none;color:var(--muted);font-weight:600;font-size:14px;cursor:pointer;font-family:inherit;padding:6px 0;}
+  .link-btn:hover{color:var(--navy);}
+  .link-btn:disabled{opacity:0.35;cursor:default;}
+  .link-btn:disabled:hover{color:var(--muted);}
+
+  /* ---------- RESULT ---------- */
+  #screen-result{padding:0;}
+  .result-hero{
+    background:linear-gradient(160deg,var(--navy-dark) 0%,var(--navy) 60%,var(--navy-light) 100%);
+    color:#fff;padding:40px 44px 32px;
+  }
+  .result-icon-badge{
+    width:64px;height:64px;border-radius:50%;
+    background:rgba(240,200,64,0.14);border:1.5px solid var(--gold-light);
+    color:var(--gold-light);display:flex;align-items:center;justify-content:center;
+    padding:15px;margin-bottom:18px;
+  }
+  .result-icon-badge svg{width:100%;height:100%;display:block;}
+  .result-hero .range-label{color:var(--gold-light);font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:10px;}
+  .result-hero h2{font-size:clamp(26px,4.5vw,34px);margin:0 0 8px 0;font-weight:800;}
+  .result-hero .tagline{font-style:italic;color:#e7ecf6;font-size:15px;margin:0 0 20px 0;}
+  .score-num{font-size:13px;color:#b9c2d6;}
+  .score-num b{color:#fff;font-size:16px;}
+
+  .gauge{position:relative;height:10px;border-radius:6px;overflow:hidden;display:flex;margin-top:18px;}
+  .gauge div{height:100%;}
+  .gauge .seg1{background:#8a5a5a;flex:19;}
+  .gauge .seg2{background:#b98a3f;flex:20;}
+  .gauge .seg3{background:#7a9a5f;flex:20;}
+  .gauge .seg4{background:var(--gold-light);flex:25;}
+  .gauge-marker{
+    position:absolute;top:-6px;width:3px;height:22px;background:#fff;border-radius:2px;
+    box-shadow:0 0 0 2px var(--navy-dark);
+  }
+
+  .result-body{padding:32px 44px 12px;}
+  .result-body p{font-size:15px;line-height:1.65;color:#333;margin:0 0 16px 0;}
+  .callout-box{
+    background:#f6f2e2;border-left:4px solid var(--gold);padding:14px 18px;border-radius:0 8px 8px 0;
+    font-size:14px;line-height:1.55;margin:18px 0;
+  }
+  .callout-box b{color:var(--navy);}
+  .cta-box{
+    background:#eef1f7;border-left:4px solid var(--navy);padding:14px 18px;border-radius:0 8px 8px 0;
+    font-size:14px;line-height:1.55;margin:18px 0 28px 0;
+  }
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap;padding:0 44px 40px;}
+  .types-mini{padding:8px 44px 40px;border-top:1px solid var(--line);margin-top:8px;}
+  .types-mini .mini-title{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:700;margin:22px 0 14px 0;}
+  .mini-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+  .mini-card{border:1.5px solid var(--line);border-radius:10px;padding:14px 10px 12px;text-align:center;font-size:11.5px;font-weight:700;color:var(--muted);}
+  .mini-card.current{border-color:var(--gold);background:#fdf7e6;color:var(--navy);}
+  .mini-card .r{display:block;font-size:9.5px;color:var(--muted);font-weight:600;margin-top:4px;}
+  .mini-card-icon{width:26px;height:26px;margin:0 auto 8px;color:#aeb4c2;}
+  .mini-card-icon svg{width:100%;height:100%;display:block;}
+  .mini-card.current .mini-card-icon{color:var(--gold);}
+
+  @media (max-width:600px){
+    #screen-intro,#screen-quiz{padding:32px 24px 28px;}
+    .result-hero,.result-body{padding-left:24px;padding-right:24px;}
+    .cta-row{padding-left:24px;padding-right:24px;}
+    .types-mini{padding-left:24px;padding-right:24px;}
+    .mini-grid{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<div id="amp-score-widget">
+
+  <!-- INTRO -->
+  <section id="screen-intro" class="screen active">
+    <div class="kicker">A Companion Diagnostic to the Book</div>
+    <h1>The Amplification Score</h1>
+    <div class="sub">Is your organization ready to amplify — or ready to expose?</div>
+    <p>Twenty-one statements about how your organization actually works. Four resulting types.
+      Only one of them is ready for AI to make it better instead of worse.</p>
+    <div class="meta-row">
+      <span>⏱ 5–7 minutes</span>
+      <span>🔒 Free, no sign-up</span>
+      <span>📊 Instant result</span>
+    </div>
+    <button class="btn btn-primary" onclick="ampScore.start()">Find your score →</button>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="screen-quiz" class="screen">
+    <div class="progress-wrap">
+      <div class="progress-top">
+        <span class="group-label" id="group-label">Clarity &amp; Decision Velocity</span>
+        <span id="progress-count">Question 1 of 21</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:4.7%"></div></div>
+    </div>
+    <div class="q-text" id="q-text">Loading…</div>
+    <div class="scale" id="scale"></div>
+    <div class="quiz-footer">
+      <button class="link-btn" id="back-btn" onclick="ampScore.back()">← Back</button>
+      <button class="link-btn" id="skip-hint" disabled>Select an answer to continue</button>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section id="screen-result" class="screen">
+    <div class="result-hero">
+      <div class="result-icon-badge" id="res-icon"></div>
+      <div class="range-label" id="res-range">SCORE 21–40</div>
+      <h2 id="res-name">The Ceremony Performer</h2>
+      <div class="tagline" id="res-tag">"We do all the ceremonies. Why doesn't it feel like it's working?"</div>
+      <div class="score-num">Your score: <b id="res-score">0</b> / 105</div>
+      <div class="gauge">
+        <div class="seg1"></div><div class="seg2"></div><div class="seg3"></div><div class="seg4"></div>
+        <div class="gauge-marker" id="gauge-marker" style="left:0%"></div>
+      </div>
+    </div>
+    <div class="result-body">
+      <p id="res-desc"></p>
+      <div class="callout-box" id="res-youif"></div>
+      <div class="cta-box" id="res-week"></div>
+    </div>
+    <div class="cta-row">
+      <a class="btn btn-dark" href="https://pragility.ca/book.html" target="_top">Read the book →</a>
+      <a class="btn btn-primary" href="https://calendly.com/coachdhaneshk" target="_top">Book a call with Dhanesh →</a>
+      <button class="btn btn-ghost" style="color:var(--navy);border-color:var(--navy)" onclick="ampScore.restart()">Retake</button>
+    </div>
+    <div class="types-mini">
+      <div class="mini-title">The four types</div>
+      <div class="mini-grid" id="mini-grid"></div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+
+  var STATEMENTS = [
+    {g:"Clarity & Decision Velocity", t:"If I stopped ten people across three levels of my organization and asked them our single top priority, their answers would match."},
+    {g:"Clarity & Decision Velocity", t:"I can name the other funded initiative that competes hardest for the same time and budget as our stated top priority."},
+    {g:"Clarity & Decision Velocity", t:"I can name the slowest decision made here last quarter, and explain exactly why it took that long."},
+    {g:"Clarity & Decision Velocity", t:"When strategy is translated from leadership down to delivery teams, it survives the trip — it doesn't quietly become something else."},
+    {g:"Clarity & Decision Velocity", t:"For the decisions my team makes every week, there is a clear owner and a threshold below which we don't need to ask permission."},
+
+    {g:"Trust & Psychological Safety", t:"What people say about how things really work here in private matches what they say out loud in the room."},
+    {g:"Trust & Psychological Safety", t:"Our psychological safety doesn't depend on one particular person being in the room."},
+    {g:"Trust & Psychological Safety", t:"When someone raises a concern or bad news, it reaches the top without being softened at each layer."},
+    {g:"Trust & Psychological Safety", t:"People here consistently keep the small commitments they make to each other."},
+    {g:"Trust & Psychological Safety", t:"Leadership has a real, stated plan for what happens if this change turns out to be wrong."},
+
+    {g:"Participation, Alignment & Ceremony", t:"Before a change is announced, the people most affected by it have already helped shape it."},
+    {g:"Participation, Alignment & Ceremony", t:"Leadership has a direct conversation with affected people before a transformation is finalized, not after."},
+    {g:"Participation, Alignment & Ceremony", t:"We have an explicit “stop doing” list — not just a growing list of things to start."},
+    {g:"Participation, Alignment & Ceremony", t:"Each of our Agile ceremonies (standups, retros, planning) produces the value it's meant to; none of them are theater."},
+    {g:"Participation, Alignment & Ceremony", t:"Executives and the people doing the work would put the same completion percentage on this quarter's key project."},
+    {g:"Participation, Alignment & Ceremony", t:"Misalignment among our leaders gets resolved at the top — it doesn't arrive at teams disguised as an execution problem."},
+
+    {g:"AI Readiness & Amplification", t:"Most people at every level here have real AI literacy, not just exposure to a tool."},
+    {g:"AI Readiness & Amplification", t:"We treat AI output as a first draft for human judgment, never as the decision itself."},
+    {g:"AI Readiness & Amplification", t:"We've reviewed our AI use for equity and ethical risk, not only for efficiency gained."},
+    {g:"AI Readiness & Amplification", t:"Feedback about what's actually happening reaches decision-makers fast enough for them to act on it."},
+    {g:"AI Readiness & Amplification", t:"If I had to bet, AI adoption here will amplify our strengths rather than our dysfunctions."}
+  ];
+
+  var SCALE = [
+    {v:1,l:"Strongly Disagree"},
+    {v:2,l:"Disagree"},
+    {v:3,l:"Neutral / Mixed"},
+    {v:4,l:"Agree"},
+    {v:5,l:"Strongly Agree"}
+  ];
+
+  var TYPES = [
+    {
+      key:"ceremony", min:21, max:40, name:"The Ceremony Performer",
+      tag:"“We do all the ceremonies. Why doesn't it feel like it's working?”",
+      desc:"Your organization has the forms of Agile without much of the substance behind them: standups that report status instead of surfacing blockers, retros that generate action items nobody revisits. Underneath sits an unresolved clarity problem — decisions stall because no one is quite sure who's allowed to make them, and psychological safety, where it exists, usually depends on one protective person rather than the structure itself. Introducing AI here mostly speeds up the ceremony, not the substance.",
+      youif:"<b>This is you if:</b> your organization can describe its Agile process in detail but struggles to describe, in one sentence, what actually changed for customers or teams because of it.",
+      week:"<b>Where to start:</b> Part I and the Ceremony-Value Map chapter in <i>Beyond Agile, Before AI</i>. Pick one ceremony this week and ask, in writing, what value it produced the last three times it ran."
+    },
+    {
+      key:"firefighter", min:41, max:60, name:"The Firefighter",
+      tag:"“We're good at this. We're just always behind.”",
+      desc:"You have real capability and spend most of it reacting. Strategy set at the top with good intentions arrives at delivery teams diluted, one translation layer at a time — then people get blamed for an “execution problem” that was actually set in motion above them. This is also where the dual reality gap tends to live: leadership's dashboard says one thing, the people doing the work know another, and have said so quietly to each other.",
+      youif:"<b>This is you if:</b> your best people are also your most burned out, and most of what gets “escalated” is really a decision no one was ever told they were allowed to make.",
+      week:"<b>Where to start:</b> the Strategy Dilution and Alignment Cascade chapters. This week, trace one recent “execution failure” back through each layer it passed through before it reached a team."
+    },
+    {
+      key:"builder", min:61, max:80, name:"The Builder",
+      tag:"“Some of this is real now. Not all of it, yet.”",
+      desc:"You've stopped treating trust, clarity, and decision rights as soft topics and started treating them as infrastructure — budgeted, monitored, occasionally repaired. The unevenness is the tell: trust might be structural in one department and still personality-dependent in another. You haven't finished the work, but you've started believing the work is necessary, which is the harder half of the problem.",
+      youif:"<b>This is you if:</b> you can point to specific, named improvements in how decisions get made or how safe people feel raising problems — but you'd also admit it depends which team you ask.",
+      week:"<b>Where to start:</b> Personal vs. Structural Safety, and the five-dimension AI Readiness Assessment. This week, run the assessment on your least-consistent team specifically."
+    },
+    {
+      key:"amplifier", min:81, max:105, name:"The Amplifier",
+      tag:"“We built the conditions first. Now AI makes them bigger.”",
+      desc:"You did the unglamorous work: purpose that actually cascades, decision rights that are written down and used, trust and psychological safety that survive a personnel change, feedback loops fast enough to catch a dual reality gap before it becomes one. AI doesn't create effectiveness here — it multiplies the effectiveness that already exists. Amplifiers are rare. Most leaders taking this honestly land well below this band.",
+      youif:"<b>This is you if:</b> when something goes wrong, people report it upward on the way to fixing it, not on the way to assigning blame — and you actually know why.",
+      week:"<b>Where to start:</b> the Conclusion, and a hard question the book keeps returning to — which of the eight conditions is quietly the one you're relying on the most people, and the least structure, to hold up?"
+    }
+  ];
+
+  var ICONS = {
+    ceremony: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"></rect><rect x="9" y="1.3" width="6" height="3" rx="1"></rect><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="16" y2="14"></line><line x1="8" y1="18" x2="13" y2="18"></line></svg>',
+    firefighter: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,3 22,20 2,20"></polygon><line x1="12" y1="9" x2="12" y2="14.5"></line><circle cx="12" cy="17" r="0.9" fill="currentColor" stroke="none"></circle></svg>',
+    builder: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="14" width="6" height="6"></rect><rect x="14.5" y="14" width="6" height="6"></rect><rect x="9" y="8" width="6" height="6"></rect><line x1="2" y1="20.5" x2="22" y2="20.5"></line></svg>',
+    amplifier: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="3,10 9,10 15,5 15,19 9,14 3,14"></polygon><path d="M18 9c1.4 1.2 1.4 4.8 0 6"></path><path d="M20.7 6.8c2.2 2.4 2.2 8 0 10.4"></path></svg>'
+  };
+
+  var answers = new Array(STATEMENTS.length).fill(null);
+  var current = 0;
+
+  function $(id){ return document.getElementById(id); }
+
+  function showScreen(id){
+    document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+    $(id).classList.add('active');
+  }
+
+  function renderQuestion(){
+    var item = STATEMENTS[current];
+    $('group-label').textContent = item.g;
+    $('progress-count').textContent = 'Question ' + (current+1) + ' of ' + STATEMENTS.length;
+    $('progress-fill').style.width = (((current+1)/STATEMENTS.length)*100).toFixed(1) + '%';
+    $('q-text').textContent = item.t;
+    $('back-btn').disabled = current === 0;
+    $('back-btn').style.visibility = current === 0 ? 'hidden' : 'visible';
+
+    var scaleEl = $('scale');
+    scaleEl.innerHTML = '';
+    SCALE.forEach(function(opt){
+      var btn = document.createElement('button');
+      btn.className = 'scale-btn' + (answers[current] === opt.v ? ' selected' : '');
+      btn.innerHTML = '<span class="scale-btn-inner"><span class="dot"></span>' + opt.l + '</span><span>' + opt.v + '</span>';
+      btn.onclick = function(){ selectAnswer(opt.v); };
+      scaleEl.appendChild(btn);
+    });
+    $('skip-hint').style.display = 'inline';
+  }
+
+  function selectAnswer(v){
+    answers[current] = v;
+    if (current < STATEMENTS.length - 1) {
+      current++;
+      renderQuestion();
+      window.scrollTo({top:0, behavior:'smooth'});
+    } else {
+      showResult();
+    }
+  }
+
+  function back(){
+    if (current > 0){
+      current--;
+      renderQuestion();
+    }
+  }
+
+  function computeScore(){
+    return answers.reduce(function(sum, v){ return sum + (v||0); }, 0);
+  }
+
+  function typeForScore(score){
+    for (var i=0;i<TYPES.length;i++){
+      if (score >= TYPES[i].min && score <= TYPES[i].max) return TYPES[i];
+    }
+    return TYPES[0];
+  }
+
+  function showResult(){
+    var score = computeScore();
+    var type = typeForScore(score);
+
+    $('res-icon').innerHTML = ICONS[type.key];
+    $('res-range').textContent = 'SCORE ' + type.min + '–' + type.max;
+    $('res-name').textContent = type.name;
+    $('res-tag').textContent = type.tag;
+    $('res-score').textContent = score;
+    $('res-desc').textContent = type.desc;
+    $('res-youif').innerHTML = type.youif;
+    $('res-week').innerHTML = type.week;
+
+    var pct = ((score - 21) / (105 - 21)) * 100;
+    pct = Math.max(0, Math.min(100, pct));
+    $('gauge-marker').style.left = pct + '%';
+
+    var grid = $('mini-grid');
+    grid.innerHTML = '';
+    TYPES.forEach(function(t){
+      var card = document.createElement('div');
+      card.className = 'mini-card' + (t.key === type.key ? ' current' : '');
+      card.innerHTML = '<div class="mini-card-icon">' + ICONS[t.key] + '</div>' + t.name + '<span class="r">' + t.min + '–' + t.max + '</span>';
+      grid.appendChild(card);
+    });
+
+    showScreen('screen-result');
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function start(){
+    current = 0;
+    answers = new Array(STATEMENTS.length).fill(null);
+    showScreen('screen-quiz');
+    renderQuestion();
+  }
+
+  function restart(){
+    start();
+  }
+
+  window.ampScore = { start: start, back: back, restart: restart };
+
+})();
+</script>
+
+</body>
+</html>
